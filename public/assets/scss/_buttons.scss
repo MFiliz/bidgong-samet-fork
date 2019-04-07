@@ -1,0 +1,39 @@
+
+/// <reference path="variables.scss" />
+/// <reference path="mixins.scss" />
+
+
+.btn {
+  box-shadow: 0 .1875rem .1875rem 0 rgba(0,0,0,.1) !important;
+  padding: 1.25rem 8rem;
+  font-family: 'Varela Round';
+  font-size: 80%;
+  text-transform: uppercase;
+  letter-spacing: .15rem;
+  border: 0;
+  border-radius: 50px;
+  color: $color-yellow;
+}
+
+.btn-primary {
+  background-color: $primary;
+  &:hover {
+    background-color: darken($primary, 10%);
+  }
+  &:focus {
+    background-color: darken($primary, 10%);
+    color: white;
+  }
+  &:active {
+    background-color: darken($primary, 15%) !important;
+  }
+}
+
+.login-social {
+  padding: 0;
+  margin: 30px 0;
+  img {
+    width: 60px;
+  }
+}
+

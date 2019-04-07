@@ -1,0 +1,168 @@
+/// <reference path="variables.scss" />
+/// <reference path="mixins.scss" />
+
+
+// Nav
+.bidgong-nav {
+  line-height: 100px;
+
+  a {
+   @include transition-background(200ms);
+    color: $color-yellow;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .icons {
+    color: $color-yellow;
+    font-size: 30px;
+  }
+
+  .logo {
+    img {
+      width: 5rem;
+
+    }
+  }
+}
+
+// Team List
+.team-list-big {
+  padding: 0.5rem;
+  color: #000000;
+  text-transform: uppercase;
+  font-size: 20px;
+  margin: 1rem 0;
+  font-weight: bold;
+  text-align: center;
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .score {
+    font-size: 50px;
+    text-align: center;
+    line-height: 160px;
+
+  }
+}
+
+.team-list {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  line-height: 90px;
+  color: #000000;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-size: 20px;
+  margin: 1rem 0;
+  @include transition-background(300ms);
+
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: $white;
+
+  }
+
+  .score {
+    font-size: 30px;
+    text-align: center;
+  }
+}
+
+
+// Top Menu
+#mainNav {
+  min-height: 56px;
+  background-color: $white;
+
+  .navbar-toggler {
+    font-size: 80%;
+    padding: 0.75rem;
+    color: $primary;
+    border: 1px solid $primary;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .navbar-brand {
+    color: $black;
+    font-weight: 700;
+    padding: .9rem 0;
+  }
+
+  .navbar-nav {
+    .nav-item {
+      &:hover {
+        color: fade(white, 80%);
+        outline: none;
+        background-color: transparent;
+      }
+
+      &:active,
+      &:focus {
+        outline: none;
+        background-color: transparent;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+    .navbar-brand {
+      padding: .5rem 0;
+      color: fade-out($white, .5);
+    }
+    .nav-link {
+      transition: none;
+      padding: 2rem 1.5rem;
+      color: fade-out($white, .5);
+
+      &:hover {
+        color: fade-out($white, .25);
+      }
+
+      &:active {
+        color: white;
+      }
+    }
+    &.navbar-shrink {
+      background-color: $white;
+
+      .navbar-brand {
+        color: $black;
+      }
+
+      .nav-link {
+        color: $black;
+        padding: 1.5rem 1.5rem 1.25rem;
+        border-bottom: 0.25rem solid transparent;
+
+        &:hover {
+          color: $primary;
+        }
+
+        &:active {
+          color: darken($primary, 15%);
+        }
+
+        &.active {
+          color: $primary;
+          outline: none;
+          border-bottom: 0.25rem solid $primary;
+        }
+      }
+    }
+  }
+}

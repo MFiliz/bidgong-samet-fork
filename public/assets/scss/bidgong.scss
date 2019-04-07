@@ -1,0 +1,84 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'navbar.scss';
+@import 'masthead.scss';
+@import 'buttons.scss';
+@import 'about.scss';
+@import 'projects.scss';
+@import 'signup.scss';
+@import 'contact.scss';
+
+
+body {
+  font-family: 'Nunito';
+}
+.pages {
+  letter-spacing: 0.0625em;
+  background-color: $color-yellow;
+  background: url('../img/bg-pages.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+
+  height: auto;
+
+}
+
+.pay {
+  letter-spacing: 0.0625em;
+  background-color: $color-yellow;
+  background: url('../img/bg-pay.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+
+  height: auto;
+
+}
+
+
+.main-section {
+
+
+  height: auto;
+}
+
+.signup-section {
+  padding: 10rem 0;
+  background: linear-gradient(to bottom, #{fade-out($black, .9)} 0%,#{fade-out($black, .5)} 75%,$black 100%), url('../img/bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+
+
+a {
+  color: $color-red;
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    color: darken($primary, 20%);
+  }
+}
+
+.bg-black {
+  background-color: $black !important;
+}
+
+.bg-primary {
+  background-color: $primary !important;
+}
+
+.text-primary {
+  color: $primary !important;
+}
+
+footer {
+  padding: 5rem 0;
+}

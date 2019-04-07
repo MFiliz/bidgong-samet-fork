@@ -1,0 +1,96 @@
+/// <reference path="variables.scss" />
+/// <reference path="mixins.scss" />
+
+
+// Page Title
+.page-title {
+  text-align: center;
+  font-size: 24px;
+}
+
+// Payment Steps
+.pay-steps {
+text-align: center;
+  margin-bottom: 2rem;
+  a {
+    color: #000;
+  }
+  ul {
+    list-style: none;
+
+    li {
+      display: inline;
+
+      &:before {
+        font-family: "Font Awesome 5 Free";
+        content: "\f111";
+        margin: 0 5px;
+        font-size: 14px;
+      }
+
+      &:after {
+        content: "";
+        display: inline-block;
+        height: 1px;
+        width: 10%;
+        background: $black;
+        margin: 0 16px 4px 16px;
+      }
+    }
+  }
+
+  .visited {
+    opacity: 0.7;
+  }
+  .current {
+    opacity: 1;
+  }
+  .future {
+    opacity: 0.5;
+  }
+}
+
+// Payment Success
+.pay-success {
+  text-align: center;
+
+  i {
+    font-size: 100px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 40px;
+    margin: 2rem 0;
+  }
+
+  p {
+    font-size: 18px;
+  }
+}
+
+// Projects
+.projects-section {
+  padding: 10rem 0;
+
+  .featured-text {
+    padding: 2rem;
+    @media (min-width: 992px) {
+      padding: 0 0 0 2rem;
+      border-left: 0.5rem solid $primary;
+    }
+  }
+
+  .project-text {
+    padding: 3rem;
+    font-size: 90%;
+    @media (min-width: 992px) {
+      padding: 5rem;
+      hr {
+        border-color: $primary;
+        border-width: .25rem;
+        width: 30%;
+      }
+    }
+  }
+}

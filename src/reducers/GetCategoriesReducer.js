@@ -27,7 +27,8 @@ export default function GetCategoriesReducer(state=[] , {
                 ...state,
                 fetching: false,
                 fetched: true,
-                result: payload
+                result: payload,
+                testt:'bu nerede'
             };
 
         default:

@@ -7,6 +7,8 @@ const Layout = props => {
     var dvMainCassName = '';
     var style = {};
     var fetched = props.fetched ? true : false;
+    var error = props.error === undefined ? "" : props.error.message;
+    console.log(error)
     if(fetched === false)
     {
         document.body.className="page-top";
@@ -27,13 +29,25 @@ const Layout = props => {
         <section className={sectionClassName}>        
             <header className={headerCassName}> 
             {
-                !fetched ? 
-                
-                <div className="container d-flex h-100 align-items-center">
+                !fetched ?                 
+                (
+                    error !=="" ?
+                    <div className="container d-flex h-100 align-items-center">
+                        <div className="mx-auto text-center">
+                        <h3>Bilinmeyen bir hata ile karşılaşıldı : </h3>
+                        <br/>
+                        <br/>
+                        <br/>
+                        {error}
+                        </div>                        
+                    </div>
+                    :
+                    <div className="container d-flex h-100 align-items-center">
                     <div className="mx-auto text-center">
                         <img src="/assets/img/splash.png" className="img-fluid" alt="" />
                     </div>
                 </div>
+                )
                 :
                 <div className="container">
                     <div className="row">

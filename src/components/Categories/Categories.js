@@ -14,6 +14,9 @@ class Categories extends Component {
     //     categories : PropTypes.array.isRequired
     // }
 
+   
+      
+
      selectCategory=(currentType,currentTypeId)=>{    
         return alert(currentTypeId);
      };
@@ -84,6 +87,7 @@ const mapStateToProps = (state) =>{
     return {
         ...state,
         fetched:state.categories.fetched,
+        error:state.categories.error,
         bodyClass : 'pages'
       };
 }

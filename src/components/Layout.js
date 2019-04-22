@@ -7,7 +7,6 @@ const Layout = props => {
     var dvMainCassName = '';
     var style = {};
     var fetched = props.fetched ? true : false;
-    console.log(props.bodyClass)
     if(fetched === false)
     {
         document.body.className="page-top";

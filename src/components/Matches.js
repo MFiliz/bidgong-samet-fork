@@ -8,11 +8,11 @@ import {Link} from 'react-router-dom';
 class Matches extends Component {
 
   componentWillMount = () => {
-      this.props.onGetUsers();
+      this.props.onGetMatches();
   };  
 
   render() {
-    
+    console.log(this.props)
     return (            
       <Layout {...this.props}>
         <div className="row team-list-big">
@@ -47,16 +47,16 @@ class Matches extends Component {
   }
 }
 
-const mapStateToProps = ({matches}) =>{
+const mapStateToProps = (state) =>{
   return {
-    result: matches,
-    fetched:matches.fetched,
+    ...state,
+    fetched:state.matches.fetched,
     bodyClass : 'pages'
   };
 }
 
 const mapDispatchToProps = {
-  onGetUsers: getUsers
+  onGetMatches: getUsers
 };
 
  export default connect(mapStateToProps,mapDispatchToProps)(Matches);

@@ -2,19 +2,14 @@ import {
     SELECT_CURRENT_CATEGORY
 } from '../actions/SelectCurrentCategoryAction';
 
-export default function SelectCurrentCategoryReducer(state=[] , {
-    type,
-    payload
-}) {
-    switch (type) {       
-        case SELECT_CURRENT_CATEGORY:
+export default function SelectCurrentCategoryReducer(state = [], { type, payload }) {
+	switch(type){
+		case SELECT_CURRENT_CATEGORY:
             return {
                 ...state,
-                fetching: true,
-                selectedCategory : payload
+                selectedCategory : payload.selectedCategoryId
             };
-        
-        default:
-            return state;
-    }
+		default:
+			return state;
+	}
 }

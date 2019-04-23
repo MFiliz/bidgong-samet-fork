@@ -8,7 +8,6 @@ const Layout = props => {
     var style = {};
     var fetched = props.fetched ? true : false;
     var error = props.error === undefined ? "" : props.error.message;
-    console.log(error)
     if(fetched === false)
     {
         document.body.className="page-top";

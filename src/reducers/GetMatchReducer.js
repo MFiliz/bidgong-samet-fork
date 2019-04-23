@@ -1,30 +1,28 @@
 import {
-    GET_CATEGORIES
-} from '../actions/GetCategoriesAction';
+    GET_CURRENT_MATCH
+} from '../actions/GetMatchAction';
 
-import {
-    SELECT_CURRENT_CATEGORY
-} from '../actions/SelectCurrentCategoryAction';
-
-export default function GetCategoriesReducer(state=[] , {
+export default function GetMatchReducer(state=[] , {
     type,
     payload
 }) {
+    
     switch (type) {       
-        case `${GET_CATEGORIES}_PENDING`:
+        case `${GET_CURRENT_MATCH}_PENDING`:
             return {
                 ...state,
                 fetching: true,
                 fetched: false,
             };
-        case `${GET_CATEGORIES}_REJECTED`:
+        case `${GET_CURRENT_MATCH}_REJECTED`:
             return {
                 ...state,
                 fetching: false,
                 fetched: false,
                 error: payload
             };
-        case `${GET_CATEGORIES}_FULFILLED`:
+        case `${GET_CURRENT_MATCH}_FULFILLED`:
+        console.log("burada");
             return {
                 ...state,
                 fetching: false,

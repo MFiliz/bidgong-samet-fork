@@ -10,12 +10,14 @@ export default function GetMatchesReducer(state=[] , {
         case `${GET_MATCHES}_PENDING`:
             return {
                 ...state,
-                fetching: true
+                fetching: true,
+                fetched: false,
             };
         case `${GET_MATCHES}_REJECTED`:
             return {
                 ...state,
                 fetching: false,
+                fetched: false,
                 error: payload
             };
         case `${GET_MATCHES}_FULFILLED`:

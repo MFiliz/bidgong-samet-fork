@@ -1,11 +1,9 @@
 import React from 'react'
 
-function CategorySlideTemplate(item,index) {
+function CategorySlideTemplate(props) {
     return (
-        <div>
-             <div key={index} className="slide" type={item.categoryName} typeid={index} >
-                        <img src="/assets/img/icon-basketball.png" />
-             </div>
+        <div key={props.item.id} className="slide" type={props.item.name} typeid={props.item.id} >
+            <img src="/assets/img/icon-basketball.png" />
         </div>
     )
 }

@@ -1,30 +1,26 @@
 import {
-    GET_CATEGORIES
-} from '../actions/GetCategoriesAction';
+    GET_CATEGORY_BY_ID
+} from '../actions/GetCategoryByIdAction';
 
-import {
-    SELECT_CURRENT_CATEGORY
-} from '../actions/SelectCurrentCategoryAction';
-
-export default function GetCategoriesReducer(state=[] , {
+export default function GetCategoryByIdReducer(state=[] , {
     type,
     payload
 }) {
     switch (type) {       
-        case `${GET_CATEGORIES}_PENDING`:
+        case `${GET_CATEGORY_BY_ID}_PENDING`:
             return {
                 ...state,
                 fetching: true,
                 fetched: false,
             };
-        case `${GET_CATEGORIES}_REJECTED`:
+        case `${GET_CATEGORY_BY_ID}_REJECTED`:
             return {
                 ...state,
                 fetching: false,
                 fetched: false,
                 error: payload
             };
-        case `${GET_CATEGORIES}_FULFILLED`:
+        case `${GET_CATEGORY_BY_ID}_FULFILLED`:
             return {
                 ...state,
                 fetching: false,

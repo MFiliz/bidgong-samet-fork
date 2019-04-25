@@ -9,8 +9,9 @@ import currentMatch from './GetMatchReducer';
 import leagues from './GetLeaguesReducer';
 import user from './LoginUserReducer';
 import registerUser from './RegisterUserReducer';
+import betPlayer from './BetPlayerReducer';
 
 export default combineReducers({
     categories,category,categorySelection,matches,currentMatch,leagues,leagueSelection,
-    user,registerUser
+    user,registerUser,betPlayer
 })

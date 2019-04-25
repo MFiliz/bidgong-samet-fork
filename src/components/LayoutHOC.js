@@ -2,20 +2,36 @@ import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import {currentUser as CheckUser} from '../actions/CurrentUserAction';
+import {logoutUser} from '../actions/LogoutUserAction';
 
 const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {    
     const cmp = class extends Component{   
 
-    asidebarOpen=()=>{
-        window.$('.aside').asidebar('open');
-    };
+    constructor(props) {
+        super(props);
+        this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
+        }
 
-    async componentWillMount() {
-        await this.props.onCheckUser(); 
+    redirectLoginIfNecessary=()=>{
         if(this.props.userFetched && !this.props.userLoggedIn)
         {
             this.props.history.push('/login');
         }
+    };
+
+    asidebarOpen=()=>{
+        window.$('.aside').asidebar('open');
+    };
+    
+    async logoutCurrentUser() {
+        await this.props.onLogoutUser();
+        this.forceUpdate();
+    }
+
+    async componentWillMount() {
+        console.log("onCheckUser");
+        await this.props.onCheckUser(); 
+        this.redirectLoginIfNecessary();
     }
       render() {
 
@@ -23,8 +39,10 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         var headerCassName = '';
         var dvMainCassName = '';
         var style = {};
+        var style2 = {};
         var fetched = this.props.fetched ? true : false;
         var error = this.props.error === undefined ? "" : this.props.error.message;
+        style2 = {'display':'flex','justifyContent':'center','alignItems':'center','color':'black'}
         if(fetched === false)
         {
             document.body.className="page-top";
@@ -68,7 +86,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
               <div className="container">
                   <div className="row">
                       <div className="col-lg-1 col-md-1 icons">
-                          <a href="#" onClick={this.asidebarOpen}><i className="fas fa-bars"></i></a>
+                          <Link to="#" onClick={this.asidebarOpen}><i className="fas fa-bars"></i></Link>
                       </div>
                       <div className="col-lg-10 col-md-10 logo">
                           <div className="mx-auto text-center">
@@ -90,11 +108,13 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
           <div className="aside">
             <div className="aside-header">
                 <div className="row">
-                    <div className="col-lg-6 col-md-6 col-xs-6">
+                    <div className="col-lg-2 col-md-2 col-xs-2">
                         <span className="close" data-dismiss="aside" aria-hidden="true"><i
                                 className="fa fa-times-circle"></i></span>
                     </div>
-                    <div className="col-lg-6 col-md-6 col-xs-6">
+                    <div style={style2} className="col-lg-6 col-md-6 col-xs-6">
+                        samet ilhan </div>
+                    <div className="col-lg-4 col-md-4 col-xs-4">
                         <img src="/assets/img/icon-user.png" className="img-fluid pull-right" alt="" />
                     </div>
                 </div>
@@ -109,9 +129,9 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
                 </ul>
                 <div className="row">
                     <div className="col-lg-6 col-md-6 col-xs-6">
-                        <a href="#"><i className="fas fa-sign-out-alt"></i></a></div>
+                        <Link to="#" onClick={this.logoutCurrentUser} ><i className="fas fa-sign-out-alt"></i></Link></div>
                     <div className="col-lg-6 col-md-6 col-xs-6">
-                        <a href="#"><i className="fas fa-cog pull-right"></i></a></div>
+                        <Link to="#"><i className="fas fa-cog pull-right"></i></Link></div>
                 </div>
             </div>
         </div>  
@@ -131,7 +151,8 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
 
     mapDispatchToProps = {
         ...mapDispatchToProps,
-        onCheckUser: CheckUser
+        onCheckUser: CheckUser,
+        onLogoutUser: logoutUser
     };
 
     return connect(mapStateToProps,mapDispatchToProps)(cmp);

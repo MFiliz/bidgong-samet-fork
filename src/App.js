@@ -30,7 +30,7 @@ class App extends Component {
                 <Route path="/matches/:id?" component={Matches} exact ></Route>   
                 <Route path="/leagues/:id?" component={Leagues} exact ></Route>                   
                 <Route path="/player/:id?" component={Player} exact ></Route>
-                <Route path="/betplayer/:id?" component={BetPayer} exact ></Route>
+                <Route path="/betplayer/:matchid/:id" component={BetPayer} exact ></Route>
                 <Route path="/players/:id?" component={Players} exact ></Route>
                 <Route path="/paymentinfo" component={PaymentInfo} exact ></Route>
                 <Route path="/paymentsuccess" component={PaymentSucces} exact ></Route>

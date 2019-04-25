@@ -56,9 +56,9 @@ class SelectedMatch extends Component {
               const footballPlayer = `footballPlayer${i+1}`;
                 return (
                     i===0?
-                    <Link key={i} to={`/betplayer/${item.playerGuid}`}><div data-tip={item.playerName} className={`football-uniform-keeper ${footballPlayer}`}></div></Link>
+                    <Link key={i} to={`/betplayer/${this.props.match.params.id}/${item.playerGuid}`}><div data-tip={item.playerName} className={`football-uniform-keeper ${footballPlayer}`}></div></Link>
                     :
-                    <Link key={i} to={`/betplayer/${item.playerGuid}`}><div data-tip={item.playerName} className={`football-uniform ${footballPlayer}`}></div></Link>
+                    <Link key={i} to={`/betplayer/${this.props.match.params.id}/${item.playerGuid}`}><div data-tip={item.playerName} className={`football-uniform ${footballPlayer}`}></div></Link>
                 );
             });
             var divStyle = {

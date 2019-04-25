@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import {getCategories} from '../actions/GetCategoriesAction';
 import CategorySlideTemplate from './Templates/CategorySlideTemplate';
 import {slideCategories} from '../scripts/CategoriesScripts';
 import {selectCurrentCategory} from '../actions/SelectCurrentCategoryAction';
 import LayoutHOC from './LayoutHOC';
-
-
-import Layout from './Layout'; 
 
 class Categories extends Component {  
     
@@ -57,9 +54,12 @@ class Categories extends Component {
     }
 }
 
-const mapStateToProps = ({categories}) =>{
+const mapStateToProps = ({categories,user}) =>{
     return {
         categories : categories.result,
+        user : user.userInfo == null ? null : user.userInfo,
+        userFetched:user.fetched,
+        userLoggedIn : user.userInfo==null ? false : true,
         fetched:categories.fetched,
         error:categories.error,
         bodyClass : 'pages',

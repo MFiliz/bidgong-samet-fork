@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Layout from './Layout';
+import {registerUser} from '../actions/RegisterUserAction';
+import {currentUser as CheckUser} from '../actions/CurrentUserAction';
 import {Link} from 'react-router-dom';
-// import Cognito from './Cognito';
-import Cognito  from './Cognito';
-
 
 class SignUp extends Component {
+
+    async componentWillMount() {
+        await this.props.onCheckUser(); 
+        if(this.props.userFetched && this.props.userLoggedIn)
+        {
+            this.props.history.push('/');
+        }
+    }
 
     registerUser = (event) => {        
         event.preventDefault();
@@ -20,20 +26,12 @@ class SignUp extends Component {
                     email: event.target.inputEmail.value
                 }
             }
-
-            var cognito = new Cognito();
-            cognito.registerEt(userObj);
+            this.props.onRegisterUser(userObj);
         }
-    
-        // // console.log(e.target.elements);
-        //  var cognito = new Cognito();
-        //  cognito.loginEt(userObj);
     };
 
     validatePass = (password,confirm_password) => {   
         let result;  
-        console.log(password.value);  
-        console.log(confirm_password.value);   
         if(password.value !== confirm_password.value) {
             confirm_password.setCustomValidity("Passwords Don't Match");
             result = false;
@@ -85,17 +83,21 @@ class SignUp extends Component {
   }
 }
 
-// const mapStateToProps = (state) =>{
-//   return {
-//       ...state,
-//       fetched:true,
-//       bodyclassName : 'page-top',
-//       sender :"leagues"
-//     };
-// }
+const mapStateToProps = ({user}) =>{
+  return {
+        fetched : user.fetched,
+        user : user.userInfo == null ? null : user.userInfo,
+        userFetched:user.fetched,
+        userLoggedIn : user.userInfo==null ? false : true,
+        error:user.error,
+        bodyclassName : 'page-top',
+        sender :"leagues"
+    };
+}
 
-// const mapDispatchToProps = {
-//     onRegisterEt: registerEt
-//   };
+const mapDispatchToProps = {
+    onRegisterUser: registerUser,
+    onCheckUser: CheckUser
+  };
 
-export default connect(null,null)(SignUp);
+export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

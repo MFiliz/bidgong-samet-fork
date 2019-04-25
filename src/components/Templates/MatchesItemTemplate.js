@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 function MatchesItemTemplate(props) {
-    console.log(props.item)
     const matchLink = `/currentmatch/${props.item.matchGuid}`;
     return (
         <div className="row team-list">            

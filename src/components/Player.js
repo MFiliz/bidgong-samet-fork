@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Layout from './Layout';
+import LayoutHOC from './LayoutHOC';
 import {Link} from 'react-router-dom';
 
 class Player extends Component {
   render() {
 
     return (
-      <Layout {...this.props}>
+      <div>
        <div className="row">
             <div className="col-lg-12 col-md-12 pay-steps">
                 <ul class="pay-steps">
@@ -27,7 +27,7 @@ class Player extends Component {
                 <Link to="/paymentinfo"><button type="submit" className="btn btn-primary mx-auto">PAY NOW</button></Link>
             </div>
         </div>
-      </Layout>
+      </div>
     )
   }
 }
@@ -40,4 +40,4 @@ const mapStateToProps = ({player}) =>{
   };
 }
 
-export default connect(mapStateToProps)(Player);
+export default connect(mapStateToProps)(LayoutHOC(Player));

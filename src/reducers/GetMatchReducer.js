@@ -22,7 +22,6 @@ export default function GetMatchReducer(state=[] , {
                 error: payload
             };
         case `${GET_CURRENT_MATCH}_FULFILLED`:
-        console.log("burada");
             return {
                 ...state,
                 fetching: false,

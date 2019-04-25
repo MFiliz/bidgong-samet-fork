@@ -14,7 +14,6 @@ export async function fetchPhotos() {
   export default function (state = [], action) {
     switch (action.type) {
       case "FETCH_PHOTOS":
-        console.log(action);
         return [action.payload.data.message, action.payload.likes];
       default:
         return state;

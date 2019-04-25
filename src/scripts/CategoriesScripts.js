@@ -1,5 +1,5 @@
-export function slideCategories(categories,selectCategory){
-    if(categories.fetched)
+export function slideCategories(fetched,selectCategory){
+    if(fetched)
     {
         try{
             window.slider = window.$('#slider').cardSlider({

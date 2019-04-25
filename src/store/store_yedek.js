@@ -6,13 +6,13 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import reduxPromiseMiddleware from 'redux-promise-middleware';
 
-// const initialState = {
-//     fetching: false,
-//     fetched: false,
-//     result: [],
-//     user: '',
-//     error: null
-// };
+const initialState = {
+    fetching: false,
+    fetched: false,
+    result: [],
+    user: '',
+    error: null
+};
 const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(
     reduxPromiseMiddleware,thunk,logger
 )));

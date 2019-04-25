@@ -1,5 +1,5 @@
-export function slideLeagues(leagues,selectLeague,selectedLague){
-    if(leagues.fetched)
+export function slideLeagues(fetched,selectLeague,selectedLague){
+    if(fetched)
     {
         selectedLague = 1
         try{

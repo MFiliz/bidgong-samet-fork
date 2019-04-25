@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Layout from './Layout';
+import LayoutHOC from './LayoutHOC';
 
 class Players extends Component {
   
   render() {
-    console.log(this.props);
     return (
-      <Layout>
+      <div>
         Burası Players sayfası
-      </Layout>
+      </div>
     )
   }
 }
@@ -20,4 +19,4 @@ const mapStateToProps = ({players}) =>{
     };
 }
 
-export default connect(mapStateToProps)(Players);
+export default connect(mapStateToProps)(LayoutHOC(Players));

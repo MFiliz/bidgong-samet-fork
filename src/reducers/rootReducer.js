@@ -7,7 +7,10 @@ import leagueSelection from './SelectCurrentLeagueReducer';
 import matches from './GetMatchesReducer';
 import currentMatch from './GetMatchReducer';
 import leagues from './GetLeaguesReducer';
+import user from './LoginUserReducer';
+import registerUser from './RegisterUserReducer';
 
 export default combineReducers({
-    categories,category,categorySelection,matches,currentMatch,leagues,leagueSelection
+    categories,category,categorySelection,matches,currentMatch,leagues,leagueSelection,
+    user,registerUser
 })

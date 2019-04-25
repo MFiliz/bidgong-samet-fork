@@ -1,30 +1,61 @@
+
 import React, { Component } from 'react';
+import {loginUser} from '../actions/LoginUserAction';
+import {currentUser as CheckUser} from '../actions/CurrentUserAction';
 import { connect } from 'react-redux';
-import Layout from './Layout';
 import {Link} from 'react-router-dom';
-import Cognito  from './Cognito';
+import Cookies from 'universal-cookie';
+import CryptoJS from 'crypto-js';
+// import { Redirect } from 'react-router';
+import {ENCRYPT_SECRET_KEY,LOGIN_COOKIE_NAME} from '../config/Config';
 
 class Login extends Component {
 
-  loginUser = (event) => {        
-    event.preventDefault();
-    var userObj = {
-      username: event.target.inputEmail.value,
-      password: event.target.inputPassword.value
-  }
+    constructor(props) {
+        super(props);
+        this.state = { counter: 0 };
+        this.loginUser = this.loginUser.bind(this);
+      }
 
-  var cognito = new Cognito();
-  cognito.loginEt(userObj);
-};
+    async componentWillMount() {
+        await this.props.onCheckUser(); 
+        if(this.props.userFetched && this.props.userLoggedIn)
+        {
+            this.props.history.push('/');
+        }
+    }
+
+    async loginUser(event) {    
+        event.preventDefault();
+        const cookies = new Cookies(); 
+        cookies.remove(LOGIN_COOKIE_NAME);
+        var userObj = {
+            username: event.target.inputEmail.value,
+            password: event.target.inputPassword.value
+        }
+        await this.props.onLoginUser(userObj);
+      
+        if(this.props.userFetched && this.props.userLoggedIn)
+        {
+            this.props.history.push('/login');
+            let encryptedUser = CryptoJS.AES.encrypt(JSON.stringify(this.props.user), ENCRYPT_SECRET_KEY).toString();   
+            let tomorrow = new Date();
+            tomorrow.setMinutes(tomorrow.getMinutes()+1);
+            cookies.set(LOGIN_COOKIE_NAME, encryptedUser, { path: '/', expires: tomorrow });  
+            this.props.history.push('/');  
+        }
+    }
 
   render() {
+
     document.body.className="page-top";
+    
     return (         
       <section id="signup" className="signup-section">
           <div className="container">
               <div className="row">
                   <div className="mx-auto text-center mb-5">
-                      <img src="/assets/img/logo.png" className="img-fluid" alt="" />
+                  <Link to="/"><img src="/assets/img/logo.png" className="img-fluid" alt="" /></Link>
                   </div>
               </div>
               <div className="row">
@@ -45,7 +76,7 @@ class Login extends Component {
                           </div>
                           <button type="submit" className="btn btn-primary mx-auto">Login</button>
                       </form>
-                      <span>Don’t have an account? <Link to="#">Sign Up</Link></span>
+                      <span>Don’t have an account? <Link to="/signup">Sign Up</Link></span>
                   </div>
               </div>
       
@@ -55,13 +86,19 @@ class Login extends Component {
   }
 }
 
-// const mapStateToProps = (state) =>{
-//   return {
-//       ...state,
-//       fetched:true,
-//       bodyclassName : 'page-top',
-//       sender :"leagues"
-//     };
-// }
+const mapStateToProps = ({user}) =>{
+  return {
+    fetched : user.fetched,
+    user : user.userInfo == null ? null : user.userInfo,
+    userFetched:user.fetched,
+    userLoggedIn : user.userInfo==null ? false : true,
+    error:user.error
+    };
+}
 
-export default connect()(Login);
+const mapDispatchToProps = {
+    onLoginUser: loginUser,
+    onCheckUser: CheckUser
+  };
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

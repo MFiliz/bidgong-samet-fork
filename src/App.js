@@ -15,6 +15,7 @@ import BetPayer from './components/BetPayer';
 import Players from './components/Players';
 import PaymentInfo from './components/PaymentInfo';
 import PaymentSucces from './components/PaymentSucces';
+import Notifications from './components/Notifications';
 
 class App extends Component {
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
                 <Route path="/players/:id?" component={Players} exact ></Route>
                 <Route path="/paymentinfo" component={PaymentInfo} exact ></Route>
                 <Route path="/paymentsuccess" component={PaymentSucces} exact ></Route>
+                <Route path="/notifications" component={Notifications} exact ></Route>
                 <Route component={Error} exact></Route>
              </Switch>              
           </Router>           

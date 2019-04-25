@@ -6,9 +6,7 @@ import {getLeagues} from '../actions/GetLeaguesAction';
 import LeagueSlideTemplate from './Templates/LeagueSlideTemplate';
 import {slideLeagues} from '../scripts/LeaguesScripts';
 import {selectCurrentLeague} from '../actions/SelectCurrentLeagueAction';
-
-
-import Layout from './Layout'; 
+import LayoutHOC from './LayoutHOC';
 
 class Legues extends Component {  
 
@@ -21,44 +19,43 @@ class Legues extends Component {
  
      async componentWillMount() {    
         await this.props.onGetLeagues(this.props.match.params.id);
-        slideLeagues(this.props.leagues,this.selectLeague,this.props.match.params.id); 
-        console.log(this.props) 
+        slideLeagues(this.props.fetched,this.selectLeague,this.props.match.params.id); 
     }
     
     render() {
-
+        
         if (this.selectedLeagueId !=="") {
             const redirectUrl = `/matches/${this.selectedLeagueId}`
              return <Redirect to={redirectUrl}/>;            
         }
 
         let durationBody = "";
-        if(this.props.leagues.fetched === true){
-            durationBody = this.props.leagues.result.map((item, i) => {
+        if(this.props.fetched === true){
+            durationBody = this.props.leagues.map((item, i) => {
                 return (
                     <LeagueSlideTemplate key={i} item = {item} index={i}/>
                 );
             });
         }
 
+        console.log(this.props);
         return (
-            <Layout {...this.props}>
+          
                 <div className="container mt-5">
                     <h2 className="page-title">CHOOSE YOUR FAVORITE LEAGUE</h2>
                     <div id="slider" className="ui-card-slider">
                     {durationBody}
                     </div>
-                </div>
-             </Layout>            
+                </div>       
         )
     }
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = ({leagues}) =>{
     return {
-        ...state,
-        fetched:state.leagues.fetched,
-        error:state.leagues.error,
+        leagues:leagues.result,
+        fetched:leagues.fetched,
+        error:leagues.error,
         bodyClass : 'pages',
         sender :"leagues"
       };
@@ -69,4 +66,4 @@ const mapDispatchToProps = {
     onSelectCurrentLeague: selectCurrentLeague
   };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Legues);
+export default connect(mapStateToProps,mapDispatchToProps)(LayoutHOC(Legues));

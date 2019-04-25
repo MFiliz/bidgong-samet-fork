@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Layout from './Layout';
+import LayoutHOC from './LayoutHOC';
 import {Link} from 'react-router-dom';
 
 
@@ -8,7 +8,7 @@ class PaymentInfo extends Component {
   render() {
 
     return (
-      <Layout {...this.props}>
+      <div>
        <div className="row">
             <div className="col-lg-12 col-md-12 pay-steps">
                 <ul class="pay-steps">
@@ -38,7 +38,7 @@ class PaymentInfo extends Component {
                 </form>
             </div>
         </div>
-      </Layout>
+      </div>
     )
   }
 }
@@ -51,4 +51,4 @@ const mapStateToProps = ({paymentInfo}) =>{
   };
 }
 
-export default connect(mapStateToProps)(PaymentInfo);
+export default connect(mapStateToProps)(LayoutHOC(PaymentInfo));

@@ -5,7 +5,7 @@ export function getMatch(matchId){
 	return {
 		type: GET_CURRENT_MATCH,
 		payload: new Promise((resolve, reject) => {
-			setTimeout(function() {
+			// setTimeout(function() {
 				resolve(axios.get('http://bidgongservices-dev.eu-central-1.elasticbeanstalk.com/api/Teams/GetActiveMatchByGuid',{
 					params: {
 						MatchId: matchId
@@ -13,7 +13,7 @@ export function getMatch(matchId){
 				})
 				.then(res => res.data)
 				)
-			}, 2000);
+			// }, 2000);
 		  })
 	}
 }

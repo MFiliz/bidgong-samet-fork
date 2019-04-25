@@ -1,7 +1,6 @@
 import Cookies from 'universal-cookie';
 import CryptoJS from 'crypto-js';
 import {ENCRYPT_SECRET_KEY,LOGIN_COOKIE_NAME} from '../config/Config';
-import { ConsoleLogger } from '@aws-amplify/core';
 export const LOGIN_USER = 'LOGIN_USER';
 
 export function currentUser(){
@@ -24,9 +23,6 @@ export function currentUser(){
 			challengeName : userInfo.challengeName
 		}
 	}	
-
-	// console.log("userInfo");
-	// console.log(userInfo);
 	return {
 			type: LOGIN_USER,
 			payload: new Promise((resolve, reject) => {
@@ -36,15 +32,3 @@ export function currentUser(){
 			})
 		}
 }
-
-// export function currentUser(userObj){
-// 	return {
-// 		type: CURRENT_AUTHENTICATION_USER,
-// 		payload: new Promise((resolve, reject) => {
-// 			resolve(
-//                 auth.currentAuthenticatedUser()
-//                 .then(res =>  res)
-// 				)
-// 		  })
-// 	}
-// }

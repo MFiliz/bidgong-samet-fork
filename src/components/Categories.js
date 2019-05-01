@@ -29,12 +29,15 @@ class Categories extends Component {
     
     
     render() {
+
+        let documentBody = "";
+        let durationBody = "";
+
         if (this.selectedCategoryId !=="") {
             const redirectUrl = `/leagues/${this.selectedCategoryId}`;
              return <Redirect to={redirectUrl}/>;            
         }
-
-        let durationBody = "";
+        
         if(this.props.fetched === true){
             durationBody = this.props.categories.map((item, i) => {
                 return (
@@ -43,13 +46,17 @@ class Categories extends Component {
             });
         }
 
+        documentBody = this.props.fetched ? 
+            <div className="container mt-5">
+                <h2 className="page-title">CHOOSE YOUR FAVORITE SPORTS CATEGORY</h2>
+                <div id="slider" className="ui-card-slider">
+                {durationBody}
+                </div>
+            </div>   
+        : "";
+
         return (
-                <div className="container mt-5">
-                    <h2 className="page-title">CHOOSE YOUR FAVORITE SPORTS CATEGORY</h2>
-                    <div id="slider" className="ui-card-slider">
-                    {durationBody}
-                    </div>
-                </div>       
+            documentBody  
         )
     }
 }

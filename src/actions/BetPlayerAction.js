@@ -6,7 +6,7 @@ export function betPlayer(betInfo){
 		type: BET_PLAYER,
 		payload: new Promise((resolve, reject) => {
 			// setTimeout(function() {
-				resolve(axios.post('http://bidgongservices-dev.eu-central-1.elasticbeanstalk.com/api/Teams/GetActiveMatchByGuid',betInfo)
+				resolve(axios.post('http://bidgongservices-dev.eu-central-1.elasticbeanstalk.com/api/Bet/Bet',betInfo)
 				.then(res => res.data)
 				)
 			// }, 2000);

@@ -23,13 +23,14 @@ class Legues extends Component {
     }
     
     render() {
-        
+        let documentBody = "";
+        let durationBody = "";
         if (this.selectedLeagueId !=="") {
             const redirectUrl = `/matches/${this.selectedLeagueId}`
              return <Redirect to={redirectUrl}/>;            
         }
 
-        let durationBody = "";
+        
         if(this.props.fetched === true){
             durationBody = this.props.leagues.map((item, i) => {
                 return (
@@ -38,15 +39,17 @@ class Legues extends Component {
             });
         }
 
-        console.log(this.props);
+        documentBody = this.props.fetched === true ? 
+        <div className="container mt-5">
+            <h2 className="page-title">CHOOSE YOUR FAVORITE LEAGUE</h2>
+            <div id="slider" className="ui-card-slider">
+            {durationBody}
+            </div>
+        </div>   
+        :  <div className="container mt-5"></div>
+
         return (
-          
-                <div className="container mt-5">
-                    <h2 className="page-title">CHOOSE YOUR FAVORITE LEAGUE</h2>
-                    <div id="slider" className="ui-card-slider">
-                    {durationBody}
-                    </div>
-                </div>       
+          documentBody
         )
     }
 }

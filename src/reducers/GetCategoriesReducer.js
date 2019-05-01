@@ -24,7 +24,7 @@ export default function GetCategoriesReducer(state=[] , {
                 fetched: false,
                 error: payload
             };
-        case `${GET_CATEGORIES}_FULFILLED`:
+        case `${GET_CATEGORIES}_FULFILLED`:        
             return {
                 ...state,
                 fetching: false,

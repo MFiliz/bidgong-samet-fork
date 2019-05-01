@@ -42,6 +42,13 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         var style2 = {};
         var fetched = this.props.fetched ? true : false;
         var error = this.props.error === undefined ? "" : this.props.error.message;
+        // console.log(typeof(this.props.error.isCustom) === 'undefined')
+        var isCustom = false;
+        if(typeof(this.props.error)!=="undefined" && typeof(this.props.error.isCustom)!=="undefined")
+        {
+            isCustom = this.props.error.isCustom;
+        }
+       
         style2 = {'display':'flex','justifyContent':'center','alignItems':'center','color':'black'}
         if(fetched === false)
         {
@@ -53,6 +60,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         }
         else
         {
+           
             document.body.className=this.props.bodyClass;
             sectionClassName = 'main-section';
             headerCassName = 'mt-4 bidgong-nav';
@@ -68,11 +76,16 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
                   error !=="" ?
                   <div className="container d-flex h-100 align-items-center">
                       <div className="mx-auto text-center">
-                      <h3>Bilinmeyen bir hata ile karşılaşıldı : </h3>
+                      <Link to="/"><img src="/assets/img/logo.png" className="img-fluid" alt=""/> </Link>
                       <br/>
                       <br/>
                       <br/>
-                      {error}
+                      <h3> {
+                          isCustom ? 
+                            error
+                             : 
+                             "Bir hata ile karşılaşıldı"
+                          }</h3>                     
                       </div>                        
                   </div>
                   :
@@ -99,12 +112,14 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
                   </div>
               </div> 
           }     
-          </header>   
+          </header> 
+
           <div style={style} className={dvMainCassName}>
-                  {
-                      <WrappedComponent {...this.props}/>
-                  }
+            {
+                <WrappedComponent {...this.props}/>
+            }
           </div>
+         
           <div className="aside">
             <div className="aside-header">
                 <div className="row">

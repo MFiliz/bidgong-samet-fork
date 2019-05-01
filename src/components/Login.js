@@ -39,7 +39,7 @@ class Login extends Component {
             this.props.history.push('/login');
             let encryptedUser = CryptoJS.AES.encrypt(JSON.stringify(this.props.user), ENCRYPT_SECRET_KEY).toString();   
             let tomorrow = new Date();
-            tomorrow.setMinutes(tomorrow.getMinutes()+5);
+            tomorrow.setMinutes(tomorrow.getMinutes()+60);
             cookies.set(LOGIN_COOKIE_NAME, encryptedUser, { path: '/', expires: tomorrow });  
             this.props.history.push('/');  
         }

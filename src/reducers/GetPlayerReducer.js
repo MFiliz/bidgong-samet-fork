@@ -1,42 +1,33 @@
 import {
-    GET_LEAGUES
-} from '../actions/GetLeaguesAction';
+    GET_PLAYER
+} from '../actions/GetPlayerAction';
 
-export default function GetLeaguesReducer(state=[] , {
+export default function GetMatchReducer(state=[] , {
     type,
     payload
 }) {
-   
+    
     switch (type) {       
-        case `${GET_LEAGUES}_PENDING`:
+        case `${GET_PLAYER}_PENDING`:
             return {
                 ...state,
                 fetching: true,
                 fetched: false,
             };
-        case `${GET_LEAGUES}_REJECTED`:
+        case `${GET_PLAYER}_REJECTED`:
             return {
                 ...state,
                 fetching: false,
                 fetched: false,
                 error: payload
             };
-        case `${GET_LEAGUES}_FULFILLED`:
-            return payload.length===0 ? {
-                ...state,
-                fetching: false,
-                fetched: false,
-                error:{
-                    message: "Seçilen kategoriye ait lig bulunamadı",
-                    isCustom : true
-                }
-            } : {
+        case `${GET_PLAYER}_FULFILLED`:
+            return {
                 ...state,
                 fetching: false,
                 fetched: true,
                 result: payload
             };
-
         default:
             return state;
     }

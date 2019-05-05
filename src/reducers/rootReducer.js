@@ -11,8 +11,10 @@ import user from './LoginUserReducer';
 import registerUser from './RegisterUserReducer';
 import betPlayer from './BetPlayerReducer';
 import player from './GetPlayerReducer';
+import winner from './WinnerReducer';
+import paymentInfo from './SendPaymentReducer';
 
 export default combineReducers({
     categories,category,categorySelection,matches,currentMatch,leagues,leagueSelection,
-    user,registerUser,betPlayer,player
+    user,registerUser,betPlayer,player,winner,paymentInfo
 })

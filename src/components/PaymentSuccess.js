@@ -3,27 +3,44 @@ import { connect } from 'react-redux';
 import LayoutHOC from './LayoutHOC';
 import {Link} from 'react-router-dom';
 
+
 class PaymentSuccess extends Component {
+
+  componentDidCatch(error, info) {
+    this.props.history.push('/error');
+  }
+  
+
+  componentWillMount() {
+    console.log(this.props.match.params)
+    // console.log(this.props.match.params.isPayment)
+    if(typeof(this.props.match.params.isPayment)!=="undefined")
+    {
+      window.postMessage();
+
+        window.close();
+    }    
+  }
   render() {
 
     return (
       <div >
        <div className="row">
             <div className="col-lg-12 col-md-12 pay-steps">
-                <ul class="pay-steps">
+                <ul className="pay-steps">
                     <li className="future">REVIEW YOUR</li>
                     <li className="future">ORDER PAYMENT</li>
                     <li className="current">FINISH</li>
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 pay-success">
-                <i class="far fa-check-circle"></i>
+        <div className="row">
+            <div className="col-lg-12 col-md-12 pay-success">
+                <i className="far fa-check-circle"></i>
                 <h2>SUCCESS</h2>
                 <p>Check the result in notifications after
                     finish the match</p>
-                    <Link to="/"><button type="submit" class="btn btn-primary mx-auto">DONE</button></Link>
+                    <Link to="/"><button type="submit" className="btn btn-primary mx-auto">DONE</button></Link>
             </div>
         </div>
       </div>
@@ -31,9 +48,10 @@ class PaymentSuccess extends Component {
   }
 }
 
-const mapStateToProps = ({paymentSuccess}) =>{
+const mapStateToProps = ({paymentSuccess,gotoError}) =>{
   return {
     paymentSuccess,
+    gotoError,
     fetched : true,
     bodyClass : 'pay'
   };

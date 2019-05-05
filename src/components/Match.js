@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import LayoutHOC from './LayoutHOC';
 import {Link} from 'react-router-dom';
@@ -16,15 +17,14 @@ class SelectedMatch extends Component {
       subscribeKey: 'sub-c-7d57f2f4-37bc-11e9-b5cf-1e59042875b2'
     });
     this.pubnub.init(this);
-  }
-  
+  }  
 
-  selectedTeamName = "";
+  selectedTeamGuid = "";
   updateForce = false;
 
-  selectTeamName=(selectedTeamName)=>{
-      this.selectedTeamName = selectedTeamName;
-      this.forceUpdate();
+  selectTeamGuid=(selectedTeamGuid)=>{
+      this.selectedTeamGuid = selectedTeamGuid;
+      // this.forceUpdate();
   };
 
   lowerCaseLetter=(object)=>{
@@ -32,13 +32,16 @@ class SelectedMatch extends Component {
       return res;
   };
 
+  gotoPlayer=(event)=>{
+    this.props.history.push(event.currentTarget.attributes.getNamedItem('to').value);
+  };
 
   async componentWillMount() {
     if(this.props.match.params.id!==undefined && this.props.match.params.id !=="")
     {
        await this.props.onGetMatch(this.props.match.params.id);
 
-       this.selectTeamName(this.props.currentMatch.detail.homeTeam.teamName);
+       this.selectTeamGuid(this.props.currentMatch.detail.homeTeam.teamGuid);
 
         // currentBet = this.props.playerBetPrice;
         this.pubnub.subscribe({
@@ -63,11 +66,11 @@ class SelectedMatch extends Component {
 
     let documentBody = "";
 
-    const selectedTeam = this.props.match.params.teamName!==undefined && this.props.match.params.teamName !=="" ? 
-    this.props.match.params.teamName : this.selectedTeamName;
-    if(selectedTeam!==this.selectedTeamName)
+    const selectedTeam = this.props.match.params.teamGuid!==undefined && this.props.match.params.teamGuid !=="" ? 
+    this.props.match.params.teamGuid : this.selectedTeamGuid;
+    if(selectedTeam!==this.selectedTeamGuid)
     {
-      this.selectTeamName(this.props.match.params.teamName);
+      this.selectTeamGuid(this.props.match.params.teamGuid);
     }
     
     let durationPlayers = "";
@@ -79,12 +82,12 @@ class SelectedMatch extends Component {
       const teams = [];
       teams.push(this.props.currentMatch.detail.homeTeam);
       teams.push(this.props.currentMatch.detail.guestTeam);
-      const teamName = this.selectedTeamName;
+      const teamGuid = this.selectedTeamGuid;
       let currentTeam = {};
-      currentTeam =  teams.find(data => data.teamName === teamName);
+      currentTeam =  teams.find(data => data.teamGuid === teamGuid);
       if(typeof(currentTeam) !== "undefined")
       {
-          const currentTeam = this.props.currentMatch.detail.homeTeam.teamName === teamName ?
+          const currentTeam = this.props.currentMatch.detail.homeTeam.teamGuid === teamGuid ?
           this.props.currentMatch.detail.homeTeam
           :this.props.currentMatch.detail.guestTeam;
 
@@ -102,31 +105,31 @@ class SelectedMatch extends Component {
                   className={`football-uniform ${footballPlayer}`}></div></Link>
               );
           });
-          var divStyle = {
-            width: '355px',
-            height:'188px'
-          };
 
           durationTeams =
             <div className="row team-list-big">
               <div className="col-lg-4 col-md-4">
-              <img src={this.props.currentMatch.detail.homeTeam.teamFlagUrl} className="img-fluid" alt="" style={divStyle} />
-                {this.props.currentMatch.detail.homeTeam.teamName}
+                <Link to={`/currentmatch/${this.props.match.params.id}/${this.props.currentMatch.detail.homeTeam.teamGuid}`}>
+                  <img src={this.props.currentMatch.detail.homeTeam.teamFlagUrl} className="img-fluid" alt={this.props.currentMatch.detail.homeTeam.teamName}/>
+                </Link>
+                {this.props.currentMatch.detail.homeTeam.teamName}                
               </div>
-              <div className="col-lg-4 col-md-4 score">1:1</div>
+              <div className="col-lg-4 col-md-4 score"> {this.props.currentMatch.score} </div>
               <div className="col-lg-4 col-md-4">
-              <img src={this.props.currentMatch.detail.guestTeam.teamFlagUrl} className="img-fluid" alt="" style={divStyle} />
+                <Link to={`/currentmatch/${this.props.match.params.id}/${this.props.currentMatch.detail.guestTeam.teamGuid}`}>
+                  <img src={this.props.currentMatch.detail.guestTeam.teamFlagUrl} className="img-fluid" alt={this.props.currentMatch.detail.guestTeam.teamName}  />
+                </Link>
                 {this.props.currentMatch.detail.guestTeam.teamName}
               </div>
           </div>
 
           durationTeamsDots =teams.map((item, i) => {
             var classNameCurrent = i ===0  ? "col-md-6 no-padding text-right" : "col-md-6 no-padding text-left";
-            var classSelected = item.teamName ===currentTeam.teamName  ? "fas fa-circle color-white" : "fas fa-circle";
+            var classSelected = item.teamGuid ===currentTeam.teamGuid  ? "fas fa-circle color-white" : "fas fa-circle";
             var classFieldLink = i ===0  ? "fieldLink1" : "fieldLink2";
               return (
                 <div key={i} className={classNameCurrent}>
-                  <Link to={`/currentmatch/${this.props.match.params.id}/${item.teamName}`} className={classFieldLink}>
+                  <Link to={`/currentmatch/${this.props.match.params.id}/${item.teamGuid}`} className={classFieldLink}>
                   <i className={classSelected}></i></Link>
                 </div>
               );
@@ -150,9 +153,9 @@ class SelectedMatch extends Component {
                 <tbody>
                   {currentTeam.players.map((item, i) => {
                       return (
-                        <tr key={i}>
+                        <tr style={{cursor:"pointer"}} key={i} to={`/betplayer/${this.props.match.params.id}/${item.playerGuid}`} onClick = {this.gotoPlayer} >                        
                             {/* <td></td> */}
-                            <td>{item.playerName.toUpperCase()}</td>
+                            <td> {item.playerName.toUpperCase()}</td>
                             <td>{item.betPrice}$</td>
                         </tr>
                       );

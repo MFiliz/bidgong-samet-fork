@@ -122,9 +122,16 @@ class BetPlayer extends Component {
               <Link to="#" onClick={this.betPlayerIncrease}><i className="fas fa-plus-circle font-size-40 lh-250"></i></Link></div>
       </div>
       <div className="row">
-          <div className="col-lg-12 col-md-12 pay-success">
-              <h2 >{this.props.playerBetPrice}$<span style={{color: "green",marginLeft:"50px"}} ref="hdnPlayerIncrease">{this.props.currentBet}$</span></h2>
-              <button onClick={this.betPlayer} type="submit" className="btn btn-primary mx-auto">BID</button>
+        <div className="col-lg-7 col-md-7 text-right">
+          <h2 style={{marginRight:"20px"}}>{this.props.playerBetPrice}$</h2>
+        </div>
+        <div className="col-lg-5 col-md-5 text-left">
+        <h2 ref="hdnPlayerIncrease" style={{color: "green"}}>{this.props.currentBet}$</h2> 
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-lg-12 col-md-12 pay-success">
+            <button onClick={this.betPlayer} type="submit" className="btn btn-primary mx-auto">BID</button>
           </div>
       </div>
       <ToastsContainer store={ToastsStore}/>

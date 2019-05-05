@@ -14,8 +14,10 @@ import Player from './components/Player';
 import BetPayer from './components/BetPayer';
 import Players from './components/Players';
 import PaymentInfo from './components/PaymentInfo';
-import PaymentSucces from './components/PaymentSucces';
+import PaymentSuccess from './components/PaymentSuccess';
+import PaymentSuccessResult from './components/PaymentSuccessResult';
 import Notifications from './components/Notifications';
+import Winner from './components/Winner';
 
 class App extends Component {
   render() {
@@ -26,15 +28,17 @@ class App extends Component {
                 <Route path="/categories" component={Categories} exact ></Route>
                 <Route path="/login" component={Login} exact ></Route>
                 <Route path="/signup" component={SignUp} exact ></Route>
-                <Route path="/currentmatch/:id/:teamName?" component={Match} exact strict ></Route>
+                <Route path="/currentmatch/:id/:teamGuid?" component={Match} exact strict ></Route>
                 <Route path="/matches/:id?" component={Matches} exact ></Route>   
                 <Route path="/leagues/:id?" component={Leagues} exact ></Route>                   
                 <Route path="/player/:id?" component={Player} exact ></Route>
                 <Route path="/betplayer/:matchid/:id" component={BetPayer} exact ></Route>
                 <Route path="/players/:id?" component={Players} exact ></Route>
                 <Route path="/paymentinfo" component={PaymentInfo} exact ></Route>
-                <Route path="/paymentsuccess" component={PaymentSucces} exact ></Route>
+                <Route path="/paymentsuccess/:id/" component={PaymentSuccess} exact  ></Route>
+                <Route path="/paymentsuccessresult/:id/:isPayment?" component={PaymentSuccessResult} exact  ></Route>
                 <Route path="/notifications" component={Notifications} exact ></Route>
+                <Route path="/winner/:id" component={Winner} exact ></Route>
                 <Route component={Error} exact></Route>
              </Switch>              
           </Router>           

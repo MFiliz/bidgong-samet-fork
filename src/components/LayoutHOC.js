@@ -2,7 +2,11 @@ import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import {currentUser as CheckUser} from '../actions/CurrentUserAction';
+import {setWinner} from '../actions/WinnerAction';
 import {logoutUser} from '../actions/LogoutUserAction';
+import PubNubReact from 'pubnub-react';
+
+const self = [];
 
 const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {    
     const cmp = class extends Component{   
@@ -10,7 +14,18 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
     constructor(props) {
         super(props);
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
-        }
+        this.pubnub = new PubNubReact({
+            publishKey: 'pub-c-1ba62178-7b93-4e40-bbcf-39570315b5ee',
+            subscribeKey: 'sub-c-7d57f2f4-37bc-11e9-b5cf-1e59042875b2'
+          });
+        this.pubnub.init(this);
+    }
+
+    self = this;
+
+    gotoError=()=>{
+        this.props.history.push('/error');
+    };
 
     redirectLoginIfNecessary=()=>{
         if(this.props.userFetched && !this.props.userLoggedIn)
@@ -28,10 +43,41 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         this.forceUpdate();
     }
 
+    componentDidCatch(error, info) {
+      console.log("hataa")
+    }
+    
+
     async componentWillMount() {
-        console.log("onCheckUser");
         await this.props.onCheckUser(); 
         this.redirectLoginIfNecessary();
+        console.log(this.props)
+        this.pubnub.subscribe({
+            channels: [this.props.user.email],
+            withPresence: true
+        });
+
+        this.pubnub.getMessage(this.props.user.email, (channel) => {
+            if(channel.message==="1")
+            {
+                var msg = {
+                    "playerGuid": "a147949a-b803-4bd4-bf76-98be1a919d7e",
+                    "playerName": "Mehmet Filiz",
+                    "playerImageUrl": "https://s3.eu-central-1.amazonaws.com/bidgongimages/Images/uniform.png",
+                    "playerNumber": "2",
+                    "playerType": "O",
+                    "betUserMail": null,
+                    "betUserGuid": null,
+                    "betPrice": 0,
+                    "betDate": null
+                  };
+
+                this.props.onSetWinner(msg);
+                this.props.history.push(`/winner/${msg.playerGuid}`);
+                
+                // console.log(channel)
+            }
+          });
     }
       render() {
 
@@ -155,19 +201,22 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
       } 
     };
 
-    mapStateToProps = ({user}) =>{
+    mapStateToProps = ({user,winner}) =>{
         return {
             ...mapStateToProps,
             user : user.userInfo==null ? undefined : user.userInfo,
             userLoggedIn : user.userInfo==null ? false : true,
-            userFetched : user.fetched
+            userFetched : user.fetched,
+            winner
           };
     }
 
     mapDispatchToProps = {
         ...mapDispatchToProps,
         onCheckUser: CheckUser,
-        onLogoutUser: logoutUser
+        onLogoutUser: logoutUser,
+        onSetWinner : setWinner,
+        onGotoError : self.gotoError
     };
 
     return connect(mapStateToProps,mapDispatchToProps)(cmp);

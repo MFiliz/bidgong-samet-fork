@@ -27,8 +27,9 @@ export default function LoginUserReducer(state=[] , {
                 userInfo : typeof(payload) === "undefined" ? null : {
                     session : payload.Session,
                     username : payload.username,
-                    email : payload.challengeParam.userAttributes.email,
-                    challengeName : payload.challengeName
+                    //email :"test@test.com",
+                     email : payload.attributes.email,
+                     userDataKey : payload.userDataKey
                 },
                 userLoggedIn :typeof(payload) === "undefined" ? false : true
             };

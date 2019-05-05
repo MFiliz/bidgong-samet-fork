@@ -107,7 +107,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
                           </div>
                       </div>
                       <div className="col-lg-1 col-md-1 icons text-right">
-                          <Link to="/notifications"><i className="fas fa-bell"></i></Link>
+                          <Link to="/notifications"><i className="fas fa-bell"></i><span className="badge">3</span></Link>
                       </div>
                   </div>
               </div> 

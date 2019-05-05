@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {BIDGONG_SERVICE_MAIN_ADDRESS} from '../config/Config';
 export const GET_MATCHES = 'GET_MATCHES';
 
 export function getMatches(leagueId){
@@ -6,7 +7,7 @@ export function getMatches(leagueId){
 		type: GET_MATCHES,
 		payload: new Promise((resolve, reject) => {
 			// setTimeout(function() {
-				resolve(axios.get('http://bidgongservices-dev.eu-central-1.elasticbeanstalk.com/api/Teams/GetActiveMatchesByLeagueId',{
+				resolve(axios.get(`${BIDGONG_SERVICE_MAIN_ADDRESS}/api/Teams/GetActiveMatchesByLeagueId`,{
 					params: {
 						LeagueId: leagueId.toUpperCase()
 					}

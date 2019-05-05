@@ -14,13 +14,10 @@ export function currentUser(){
 		returnUserInfo = {
 			Session : userInfo.session,
 			username : userInfo.username,
-			challengeParam : 
-			{
-				userAttributes : {
-					email : userInfo.email
-				}
+			attributes : {
+				email : userInfo.email
 			},
-			challengeName : userInfo.challengeName
+			userDataKey : userInfo.userDataKey
 		}
 	}	
 	return {

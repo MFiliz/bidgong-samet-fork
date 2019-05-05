@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {BIDGONG_SERVICE_MAIN_ADDRESS} from '../config/Config';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 
 export function getCategories(){
@@ -6,7 +7,7 @@ export function getCategories(){
 		type: GET_CATEGORIES,
 		payload: new Promise((resolve, reject) => {
 			// setTimeout(function() {
-			  resolve(axios.get('http://bidgongservices-dev.eu-central-1.elasticbeanstalk.com/api/Categories/GetAll').then(res => res.data))
+			  resolve(axios.get(`${BIDGONG_SERVICE_MAIN_ADDRESS}/api/Categories/GetAll`).then(res => res.data))
 			// }, 2000);
 		  })
 	}

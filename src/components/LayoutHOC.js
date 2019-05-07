@@ -40,7 +40,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
     
     async logoutCurrentUser() {
         await this.props.onLogoutUser();
-        this.forceUpdate();
+        this.redirectLoginIfNecessary();
     }
 
     async componentWillMount() {

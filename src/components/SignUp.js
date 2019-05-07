@@ -50,7 +50,7 @@ class SignUp extends Component {
           <div className="container">
               <div className="row">
                   <div className="mx-auto text-center mb-5">
-                      <img src="/assets/img/logo.png" className="img-fluid" alt="" />
+                  <Link to="/"><img src="/assets/img/logo.png" className="img-fluid" alt="" /> </Link>
                   </div>
               </div>
               <div className="row">

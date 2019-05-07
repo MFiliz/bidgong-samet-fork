@@ -10,7 +10,7 @@ class Player extends Component {
       <div>
        <div className="row">
             <div className="col-lg-12 col-md-12 pay-steps">
-                <ul class="pay-steps">
+                <ul className="pay-steps">
                     <li className="current">REVIEW YOUR</li>
                     <li className="future">ORDER PAYMENT</li>
                     <li className="future">FINISH</li>

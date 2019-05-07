@@ -5,22 +5,7 @@ import {Link} from 'react-router-dom';
 
 
 class PaymentSuccess extends Component {
-
-  componentDidCatch(error, info) {
-    this.props.history.push('/error');
-  }
   
-
-  componentWillMount() {
-    console.log(this.props.match.params)
-    // console.log(this.props.match.params.isPayment)
-    if(typeof(this.props.match.params.isPayment)!=="undefined")
-    {
-      window.postMessage();
-
-        window.close();
-    }    
-  }
   render() {
 
     return (
@@ -40,7 +25,7 @@ class PaymentSuccess extends Component {
                 <h2>SUCCESS</h2>
                 <p>Check the result in notifications after
                     finish the match</p>
-                    <Link to="/"><button type="submit" className="btn btn-primary mx-auto">DONE</button></Link>
+                    <Link to="/notifications"><button type="submit" className="btn btn-primary mx-auto">DONE</button></Link>
             </div>
         </div>
       </div>

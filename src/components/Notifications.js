@@ -9,14 +9,14 @@ class Notifications extends Component {
     return (
       <div>
         <h1>Notifications</h1>
-        <div class="row notification-list">
-            <div class="col-lg-12 col-md-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        <div className="row notification-list">
+            <div className="col-lg-12 col-md-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
         </div>
-        <div class="row notification-list">
-            <div class="col-lg-12 col-md-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        <div className="row notification-list">
+            <div className="col-lg-12 col-md-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
         </div>
-        <div class="row notification-list">
-            <div class="col-lg-12 col-md-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        <div className="row notification-list">
+            <div className="col-lg-12 col-md-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
         </div>
       </div>
     )

@@ -61,19 +61,19 @@ class PaymentInfo extends Component {
         ToastsStore.error(this.props.paymentInfo.result.entityData.mdErrorMessage);
       }
       else
-      {         
-        ToastsStore.success("Payment Succeed");
+      {   
+        this.props.history.push('/paymentsuccess');      
       }      
     }
   }
 
   render() {
-
+//player/eed14cff-4e55-4f20-b015-82842fce9508
     return (
       <div>
        <div className="row">
             <div className="col-lg-12 col-md-12 pay-steps">
-                <ul class="pay-steps">
+                <ul className="pay-steps">
                     <li className="visited"><Link to="/player">REVIEW YOUR</Link></li>
                     <li className="current">ORDER PAYMENT</li>
                     <li className="future">FINISH</li>
@@ -84,24 +84,24 @@ class PaymentInfo extends Component {
             <div className="col-md-5 col-lg-5 mx-auto text-center">
                 <form className="mb-3">
                     <div className="form-group d-flex">
-                        <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputNameSurname"
-                               placeholder="Name Surmane on card..." value="4355084355084358" />
+                        <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputNameSurname"
+                               placeholder="Name Surmane on card..." defaultValue="4355084355084358" />
                     </div>
                     <div className="form-group d-flex">
-                        <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardNumber"
-                               placeholder="CardNumber..." value="4355084355084358" />
+                        <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardNumber"
+                               placeholder="CardNumber..." defaultValue="4355084355084358" />
                     </div>
                     <div className="form-group d-flex">
-                        <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardExpireMonth"
-                               placeholder="ExpireMonth..." value="12" />
+                        <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardExpireMonth"
+                               placeholder="ExpireMonth..." defaultValue="12" />
                     </div>
                     <div className="form-group d-flex">
-                        <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardExpireYear"
-                               placeholder="ExpireYear..." value="2019" />
+                        <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardExpireYear"
+                               placeholder="ExpireYear..." defaultValue="2019" />
                     </div>
                     <div className="form-group d-flex">
-                        <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardCvvNumber"
-                               placeholder="CardCvvNumber..." value="000" />
+                        <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardCvvNumber"
+                               placeholder="CardCvvNumber..." defaultValue="000" />
                     </div>
                     <Link to="/paymentinfo"><button type="submit" onClick={this.sendPaymentInfo} className="btn btn-primary mx-auto">PAY NOW</button></Link>
                 </form>
@@ -118,7 +118,7 @@ const mapStateToProps = ({paymentInfo,winner}) =>{
     paymentInfo,
     paymentInfoFetched : paymentInfo ===null|| typeof(paymentInfo) === "undefined" ? false : paymentInfo.fetched,
     winner,
-    fetched : true,
+    fetched : paymentInfo ===null|| typeof(paymentInfo) === "undefined" ? true : paymentInfo.fetched,
     bodyClass : 'pay'
   };
 }

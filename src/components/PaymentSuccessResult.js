@@ -10,17 +10,17 @@ class PaymentSuccess extends Component {
     this.props.history.push('/error');
   }
 
-  componentWillMount() {
-    console.log(this.props.match.params)
-    // if(typeof(this.props.match.params.isPayment)!=="undefined")
-    // {
-    //   // console.log("window.parent")
+  // componentWillMount() {
+  //   console.log(this.props.match.params)
+  //   // if(typeof(this.props.match.params.isPayment)!=="undefined")
+  //   // {
+  //   //   // console.log("window.parent")
       
-    //   // window.postMessage();
+  //   //   // window.postMessage();
 
-    //   //   window.close();
-    // }    
-  }
+  //   //   //   window.close();
+  //   // }    
+  // }
   render() {
 
     return (

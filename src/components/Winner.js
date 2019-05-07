@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 class Winner extends Component {
   render() {
     const redirectUrl = `/player/${this.props.match.params.id}`;
-    console.log(this.props);
     return (
       <div>
         <div className="row">

@@ -43,11 +43,6 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         this.forceUpdate();
     }
 
-    componentDidCatch(error, info) {
-      console.log("hataa")
-    }
-    
-
     async componentWillMount() {
         await this.props.onCheckUser(); 
         this.redirectLoginIfNecessary();

@@ -35,7 +35,7 @@ class App extends Component {
                 <Route path="/betplayer/:matchid/:id" component={BetPayer} exact ></Route>
                 <Route path="/players/:id?" component={Players} exact ></Route>
                 <Route path="/paymentinfo" component={PaymentInfo} exact ></Route>
-                <Route path="/paymentsuccess/:id/" component={PaymentSuccess} exact  ></Route>
+                <Route path="/paymentsuccess" component={PaymentSuccess} exact  ></Route>
                 <Route path="/paymentsuccessresult/:id/:isPayment?" component={PaymentSuccessResult} exact  ></Route>
                 <Route path="/notifications" component={Notifications} exact ></Route>
                 <Route path="/winner/:id" component={Winner} exact ></Route>

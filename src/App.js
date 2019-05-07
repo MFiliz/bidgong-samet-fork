@@ -7,6 +7,7 @@ import Categories from './components/Categories';
 import Leagues from './components/Leagues';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import SignupSuccess from './components/SignupSuccess';
 import Error from './components/Error';
 import Match from './components/Match';
 import Matches from './components/Matches';
@@ -28,6 +29,7 @@ class App extends Component {
                 <Route path="/categories" component={Categories} exact ></Route>
                 <Route path="/login" component={Login} exact ></Route>
                 <Route path="/signup" component={SignUp} exact ></Route>
+                <Route path="/signupsuccess" component={SignupSuccess} exact ></Route>
                 <Route path="/currentmatch/:id/:teamGuid?" component={Match} exact strict ></Route>
                 <Route path="/matches/:id?" component={Matches} exact ></Route>   
                 <Route path="/leagues/:id?" component={Leagues} exact ></Route>                   

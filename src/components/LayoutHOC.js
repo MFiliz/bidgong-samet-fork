@@ -32,36 +32,6 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         {
             this.props.history.push('/login');
         }
-        if(this.props.userLoggedIn)
-        {
-            this.pubnub.subscribe({
-                channels: [this.props.user.email],
-                withPresence: true
-            });
-
-            this.pubnub.getMessage(this.props.user.email, (channel) => {
-                if(channel.message==="1")
-                {
-                    var msg = {
-                        "playerGuid": "a147949a-b803-4bd4-bf76-98be1a919d7e",
-                        "playerName": "Mehmet Filiz",
-                        "playerImageUrl": "https://s3.eu-central-1.amazonaws.com/bidgongimages/Images/uniform.png",
-                        "playerNumber": "2",
-                        "playerType": "O",
-                        "betUserMail": null,
-                        "betUserGuid": null,
-                        "betPrice": 0,
-                        "betDate": null
-                      };
-    
-                    this.props.onSetWinner(msg);
-                    this.props.history.push(`/winner/${msg.playerGuid}`);
-                    
-                    // console.log(channel)
-                }
-              });
-        }
-       
     };
 
     asidebarOpen=()=>{
@@ -77,13 +47,24 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
       console.log("hataa")
     }
     
-    componentDidUpdate(prevProps, prevState) {
-        this.redirectLoginIfNecessary();
-    }
 
     async componentWillMount() {
         await this.props.onCheckUser(); 
         this.redirectLoginIfNecessary();
+        if(this.props.userLoggedIn)
+        {
+            this.pubnub.subscribe({
+                channels: [this.props.user.email],
+                withPresence: true
+            });
+    
+            this.pubnub.getMessage(this.props.user.email, (channel) => {   
+                console.log(channel.message) 
+                    this.props.onSetWinner(channel.message);
+                    this.props.history.push(`/winner/${channel.message.PlayerId}`);
+            });
+        }
+        
     }
       render() {
 
@@ -211,7 +192,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         return {
             ...mapStateToProps,
             user : user.userInfo==null ? undefined : user.userInfo,
-            userLoggedIn : user.userInfo ==null ? false : true,
+            userLoggedIn : user.userInfo==null ? false : true,
             userFetched : user.fetched,
             winner
           };

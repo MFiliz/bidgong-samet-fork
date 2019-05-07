@@ -20,8 +20,8 @@ class Player extends Component {
 
         <div className="row">
             <div className="col-lg-12 col-md-12 pay-success">
-                <img src="/assets/img/product-sale.png" className="img-fluid" alt=""/>
-                <h2>{this.props.winner.result.playerName}</h2>
+                <img src={this.props.winner.result.PlayerImg } className="img-fluid" alt={this.props.winner.result.PlayerName }/>
+                <h2>{this.props.winner.result.PlayerName }</h2>
                 <p>Check the result in notifications after
                     finish the match</p>
                 <Link to="/paymentinfo"><button type="submit" className="btn btn-primary mx-auto">PAY NOW</button></Link>

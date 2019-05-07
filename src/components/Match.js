@@ -32,6 +32,10 @@ class SelectedMatch extends Component {
       return res;
   };
 
+  trOnChange=(event)=>{
+    console.log(event.currentTarget)
+  };
+
   gotoPlayer=(event)=>{
     this.props.history.push(event.currentTarget.attributes.getNamedItem('to').value);
   };
@@ -56,11 +60,16 @@ class SelectedMatch extends Component {
     }
   }
 
+  // componentWillUpdate(nextProps, nextState) {
+    
+  // }
+
   // componentDidMount() {
   // }
 
-  componentDidUpdate() {
+  componentDidUpdate(nextProps, nextState) {
     ReactTooltip.rebuild();
+    console.log(nextProps);
   }
   render() {
 
@@ -153,7 +162,7 @@ class SelectedMatch extends Component {
                 <tbody>
                   {currentTeam.players.map((item, i) => {
                       return (
-                        <tr style={{cursor:"pointer"}} key={i} to={`/betplayer/${this.props.match.params.id}/${item.playerGuid}`} onClick = {this.gotoPlayer} >                        
+                        <tr onVolumeChange={this.trOnChange} style={{cursor:"pointer"}} key={i} to={`/betplayer/${this.props.match.params.id}/${item.playerGuid}`} onClick = {this.gotoPlayer} >                        
                             {/* <td></td> */}
                             <td> {item.playerName.toUpperCase()}</td>
                             <td>{item.betPrice}$</td>

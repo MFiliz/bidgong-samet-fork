@@ -27,7 +27,7 @@ export default function GetLeaguesReducer(state=[] , {
                 fetching: false,
                 fetched: false,
                 error:{
-                    message: "Seçilen kategoriye ait lig bulunamadı",
+                    message: "The league of the selected category was not found",
                     isCustom : true
                 }
             } : {

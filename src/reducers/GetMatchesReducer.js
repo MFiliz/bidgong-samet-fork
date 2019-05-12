@@ -25,8 +25,7 @@ export default function GetMatchesReducer(state=[] , {
                 ...state,
                 fetching: false,
                 fetched: true,
-                result: payload,
-                user: 'ilhannn'
+                result: payload
             };
         default:
             return state;

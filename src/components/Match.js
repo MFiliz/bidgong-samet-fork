@@ -89,7 +89,7 @@ class SelectedMatch extends Component {
       this.props.playerGuids.forEach((element,index) => {
        if(typeof(prevProps[element]) !== "undefined" && this.props[element].betPrice!==prevProps[element].betPrice)
        {        
-          ToastsStore.info(`${this.props[element].playerName} bet's changed ${prevProps[element].betPrice} to ${this.props[element].betPrice}`,5000);
+          ToastsStore.info(`${this.props[element].playerName}'s bet changed ${prevProps[element].betPrice} to ${this.props[element].betPrice}`,5000);
           this.animateElement(this.refs[element],element);
        }
       });

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import CryptoJS from 'crypto-js';
+import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 // import { Redirect } from 'react-router';
 import {ENCRYPT_SECRET_KEY,LOGIN_COOKIE_NAME} from '../config/Config';
 
@@ -17,7 +18,12 @@ class Login extends Component {
       }
 
     async componentWillMount() {
-        await this.props.onCheckUser(); 
+        try {
+            await this.props.onCheckUser(); 
+        } catch (error) {
+            ToastsStore.error(error.message,10000);
+        }      
+
         if(this.props.userFetched && this.props.userLoggedIn)
         {
             this.props.history.push('/');
@@ -32,7 +38,11 @@ class Login extends Component {
             username: event.target.inputEmail.value,
             password: event.target.inputPassword.value
         }
-        await this.props.onLoginUser(userObj);
+        try {
+            await this.props.onLoginUser(userObj);
+        } catch (error) {
+            ToastsStore.error(error.message,10000);
+        }       
       
         if(this.props.userFetched && this.props.userLoggedIn)
         {
@@ -80,6 +90,7 @@ class Login extends Component {
               </div>
       
           </div>
+          <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       </section>
     )
   }
@@ -90,6 +101,7 @@ const mapStateToProps = ({user}) =>{
     fetched : user.fetched,
     user : user.userInfo == null ? null : user.userInfo,
     userFetched:user.fetched,
+    userFetching:user.fetching,
     userLoggedIn : user.userInfo==null ? false : true,
     error:user.error
     };

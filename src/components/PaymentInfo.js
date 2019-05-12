@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import LayoutHOC from './LayoutHOC';
 import {Link} from 'react-router-dom';
 import {sendPayment} from '../actions/SendPaymentAction';
-import {ToastsContainer, ToastsStore} from 'react-toasts';
-import CreditCardInput from 'react-credit-card-input';
+import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 
 class PaymentInfo extends Component { 
 
@@ -107,7 +106,7 @@ class PaymentInfo extends Component {
                 </form>
             </div>
         </div>
-        <ToastsContainer store={ToastsStore}/>
+        <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       </div>
     )
   }

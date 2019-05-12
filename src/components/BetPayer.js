@@ -7,7 +7,7 @@ import {betPlayer} from '../actions/BetPlayerAction';
 import {setPlayerBet} from '../actions/SetPlayerBet';
 import {BET_VALUE} from '../config/Config';
 import PubNubReact from 'pubnub-react';
-import {ToastsContainer, ToastsStore} from 'react-toasts';
+import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 
 let playerGuid="BEEFFB29-A07E-497B-97CC-6C7A02C67419";
 let currentBet = 0;
@@ -151,7 +151,7 @@ class BetPlayer extends Component {
               <button type="submit" className="btn btn-primary mx-auto">BID</button>
           </div>
       </div>
-      <ToastsContainer store={ToastsStore}/>
+      <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       
 </div>
  

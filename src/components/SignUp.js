@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {registerUser} from '../actions/RegisterUserAction';
 import {currentUser as CheckUser} from '../actions/CurrentUserAction';
 import {Link} from 'react-router-dom';
-import {ToastsContainer, ToastsStore} from 'react-toasts';
+import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 
 class SignUp extends Component {
 
@@ -109,7 +109,7 @@ class SignUp extends Component {
               </div>
       
           </div>
-          <ToastsContainer store={ToastsStore}/>
+          <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       </section>
     )
   }

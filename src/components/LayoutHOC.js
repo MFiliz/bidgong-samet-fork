@@ -118,7 +118,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
                           isCustom ? 
                             error
                              : 
-                             "Bir hata ile karşılaşıldı"
+                             "An error was encountered"
                           }</h3>                     
                       </div>                        
                   </div>

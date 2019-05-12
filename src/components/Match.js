@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import LayoutHOC from './LayoutHOC';
 import {Link} from 'react-router-dom';
@@ -7,6 +7,10 @@ import ReactTooltip from 'react-tooltip';
 import {getMatch} from '../actions/GetMatchAction';
 import {setMatchBet} from '../actions/SetMatchBet';
 import PubNubReact from 'pubnub-react';
+// import ContentEditable from 'react-contenteditable';
+import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
+import scrollToComponent from 'react-scroll-to-component';
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 
 class SelectedMatch extends Component {
 
@@ -32,10 +36,6 @@ class SelectedMatch extends Component {
       return res;
   };
 
-  trOnChange=(event)=>{
-    console.log(event.currentTarget)
-  };
-
   gotoPlayer=(event)=>{
     this.props.history.push(event.currentTarget.attributes.getNamedItem('to').value);
   };
@@ -47,17 +47,33 @@ class SelectedMatch extends Component {
 
        this.selectTeamGuid(this.props.currentMatch.detail.homeTeam.teamGuid);
 
-        // currentBet = this.props.playerBetPrice;
         this.pubnub.subscribe({
           channels: [this.props.match.params.id],
           withPresence: true
         });
 
         this.pubnub.getMessage(this.props.match.params.id, (channel) => {
-          // console.log(channel);
           this.props.onSetMatchBet(channel.message);
         });   
     }
+  }
+
+
+ animateElement = (element,refName) => {
+
+  scrollToComponent(this.refs[refName], {
+      offset: 1000,
+      align: 'top',
+      duration: 1500
+  });
+
+    element.animate(
+      [{ color: "red" }, { color: "blue" }, { color: "yellow" }],
+      {
+        duration: 400,
+        iterations: 5
+      }
+    );
   }
 
   // componentWillUpdate(nextProps, nextState) {
@@ -67,9 +83,17 @@ class SelectedMatch extends Component {
   // componentDidMount() {
   // }
 
-  componentDidUpdate(nextProps, nextState) {
+  componentDidUpdate(prevProps) {
     ReactTooltip.rebuild();
-    console.log(nextProps);
+    if(this.props.fetched === true){
+      this.props.playerGuids.forEach((element,index) => {
+       if(typeof(prevProps[element]) !== "undefined" && this.props[element].betPrice!==prevProps[element].betPrice)
+       {        
+          ToastsStore.info(`${this.props[element].playerName} bet's changed ${prevProps[element].betPrice} to ${this.props[element].betPrice}`,5000);
+          this.animateElement(this.refs[element],element);
+       }
+      });
+    }    
   }
   render() {
 
@@ -92,8 +116,8 @@ class SelectedMatch extends Component {
       teams.push(this.props.currentMatch.detail.homeTeam);
       teams.push(this.props.currentMatch.detail.guestTeam);
       const teamGuid = this.selectedTeamGuid;
-      let currentTeam = {};
-      currentTeam =  teams.find(data => data.teamGuid === teamGuid);
+      
+      const currentTeam =  teams.find(data => data.teamGuid === teamGuid);
       if(typeof(currentTeam) !== "undefined")
       {
           const currentTeam = this.props.currentMatch.detail.homeTeam.teamGuid === teamGuid ?
@@ -162,10 +186,10 @@ class SelectedMatch extends Component {
                 <tbody>
                   {currentTeam.players.map((item, i) => {
                       return (
-                        <tr onVolumeChange={this.trOnChange} style={{cursor:"pointer"}} key={i} to={`/betplayer/${this.props.match.params.id}/${item.playerGuid}`} onClick = {this.gotoPlayer} >                        
+                        <tr ref={item.playerGuid} style={{cursor:"pointer"}} key={i} to={`/betplayer/${this.props.match.params.id}/${item.playerGuid}`} onClick = {this.gotoPlayer} >                        
                             {/* <td></td> */}
                             <td> {item.playerName.toUpperCase()}</td>
-                            <td>{item.betPrice}$</td>
+                            <td><span>{this.props[item.playerGuid].betPrice}$</span></td>
                         </tr>
                       );
                   })}
@@ -195,10 +219,13 @@ class SelectedMatch extends Component {
       </div>      
       {durationTeamsCompare}
       {durationBetPlayers}
+     
+      
       <ReactTooltip />
+      <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
     </div>
     : "";
-   
+    
     return (
       documentBody
     )
@@ -206,12 +233,27 @@ class SelectedMatch extends Component {
 }
 
 const mapStateToProps = ({currentMatch}) =>{
-  return {
-    currentMatch: currentMatch.result,
-    fetched: currentMatch.fetched,
-    error: currentMatch.error,
-    bodyClass : 'pages'
+  let teams = [];
+  let playerGuids = [];
+  if(currentMatch.fetched===true)
+  {
+    teams = currentMatch.result.detail.homeTeam.players.concat(currentMatch.result.detail.guestTeam.players);
+  }
+
+  var data = {
+      currentMatch: currentMatch.result,
+      teams:teams,
+      fetched: currentMatch.fetched,
+      error: currentMatch.error,
+      bodyClass : 'pages'
   };
+  teams.forEach(element => {
+    data[element.playerGuid] = element;
+    playerGuids.push(element.playerGuid);
+  });
+
+  data["playerGuids"] = playerGuids;
+  return data;
 }
 
 const mapDispatchToProps = {

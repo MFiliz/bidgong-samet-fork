@@ -11,6 +11,8 @@ import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts
 
 let playerGuid="BEEFFB29-A07E-497B-97CC-6C7A02C67419";
 let currentBet = 0;
+let lastBet = 0;
+let isMounted = false;
 class BetPlayer extends Component {
  
   constructor(props) {
@@ -44,30 +46,56 @@ class BetPlayer extends Component {
     });
   }
   
-  
-  // componentDidMount() {
-   
-  // }
-
-  componentDidUpdate() {  
-    if(this.props.fetched && this.props.betPlayerFetched)
-    {
-      if(this.props.betPlayer.isError)
+  animateElement = (element) => {
+    window.scrollTo(0, element.current.offsetTop);
+    element.animate(
+      [{ color: "red" }, { color: "blue" }, { color: "yellow" }],
       {
-        ToastsStore.error(this.props.betPlayer.message);
-      } 
-    } 
-    
-    if(this.props.fetched)
+        duration: 400,
+        iterations: 5
+      }
+    );
+  }
+
+  componentDidMount() {
+    isMounted= true;
+  }
+
+  componentDidUpdate(prevProps) {  
+    if(isMounted)
     {
-      this.refs.hdnPlayerIncrease.innerHTML = currentBet === 0 ? "" : "+" +currentBet + "$";
-      this.changeDislpayHdnPlayerIncrease();
-    } 
+      if(this.props.fetched && this.props.betPlayerFetched)
+      {
+        if(this.props.betPlayer.isError)
+        {
+          ToastsStore.error(this.props.betPlayer.message);
+        } 
+      } 
+      
+      if(this.props.fetched)
+      {
+        this.refs.hdnPlayerIncrease.innerHTML = currentBet === 0 ? "" : "+" +currentBet + "$";
+        this.changeDislpayHdnPlayerIncrease();
+      } 
+      if (this.props.playerBetPrice !== prevProps.playerBetPrice && (this.props.playerBetPrice-prevProps.playerBetPrice)-this.props.playerBetPrice !== 0) {
+        if(lastBet !== this.props.playerBetPrice)
+        {
+          ToastsStore.info(`Player bet increase ${(this.props.playerBetPrice-prevProps.playerBetPrice)}$. New bet : ${this.props.playerBetPrice}`,5000);
+          this.animateElement(this.refs[this.props.player.playerGuid]);
+        }
+        else
+        {
+          ToastsStore.success(`Your bet is successfully to ${(this.props.playerBetPrice)}$. `,5000);
+        }
+      }
+    }
   }
   
   
   componentWillUnmount() {
     currentBet = 0;
+    lastBet=0;
+    isMounted= false;
     this.pubnub.unsubscribe({
       channels: [playerGuid]
     });
@@ -106,15 +134,11 @@ class BetPlayer extends Component {
       }
   
       this.props.onBetPlayer(betVal);  
+      lastBet = this.props.player.betPrice + currentBet;
       currentBet = 0;
+      
     }    
   };
-
-  handleChange = evt => {
-    console.log("değişiyor")
-    this.setState({html: evt.target.value});
-  };
-
   changeDislpayHdnPlayerIncrease=()=>{ 
     if(this.refs.hdnPlayerIncrease.innerHTML==="")
     {
@@ -144,7 +168,7 @@ class BetPlayer extends Component {
           <Link to="#" onClick={this.betPlayerIncrease}><i className="fas fa-plus-circle font-size-40 lh-250"></i></Link></div>
       </div>
       <div className="row pay-success">
-          <div className="col-lg-12 col-md-12">
+          <div ref={this.props.player.playerGuid} className="col-lg-12 col-md-12">
               <strong>{this.props.playerBetPrice}$</strong><span ref="hdnPlayerIncrease" className="pay-success-plus">+{this.props.currentBet}</span>
           </div>
           <div className="col-lg-12 col-md-12">

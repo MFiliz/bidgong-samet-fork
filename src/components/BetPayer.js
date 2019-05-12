@@ -148,7 +148,7 @@ class BetPlayer extends Component {
               <strong>{this.props.playerBetPrice}$</strong><span ref="hdnPlayerIncrease" className="pay-success-plus">+{this.props.currentBet}</span>
           </div>
           <div className="col-lg-12 col-md-12">
-              <button type="submit" className="btn btn-primary mx-auto">BID</button>
+              <button type="submit" onClick={this.betPlayer} className="btn btn-primary mx-auto">BID</button>
           </div>
       </div>
       <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>

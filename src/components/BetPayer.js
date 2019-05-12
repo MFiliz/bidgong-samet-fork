@@ -16,6 +16,8 @@ class BetPlayer extends Component {
   constructor(props) {
     super(props)
      playerGuid = this.props.match.params.id;
+     this.contentEditable = React.createRef();
+     this.state = {html: "selaaaam"};
     this.pubnub = new PubNubReact({
       publishKey: 'pub-c-1ba62178-7b93-4e40-bbcf-39570315b5ee',
       subscribeKey: 'sub-c-7d57f2f4-37bc-11e9-b5cf-1e59042875b2'
@@ -59,8 +61,10 @@ class BetPlayer extends Component {
     if(this.props.fetched)
     {
       this.refs.hdnPlayerIncrease.innerHTML = currentBet === 0 ? "" : "+" +currentBet + "$";
+      this.changeDislpayHdnPlayerIncrease();
     } 
   }
+  
   
   componentWillUnmount() {
     this.pubnub.unsubscribe({
@@ -71,6 +75,7 @@ class BetPlayer extends Component {
   betPlayerIncrease=()=>{      
     currentBet += BET_VALUE;   
     this.refs.hdnPlayerIncrease.innerHTML = "+" +currentBet + "$"; 
+    this.changeDislpayHdnPlayerIncrease();
   };
 
   betPlayerDecrease=()=>{             
@@ -81,6 +86,7 @@ class BetPlayer extends Component {
     }
 
     this.refs.hdnPlayerIncrease.innerHTML = currentBet === 0 ? "" : "+" +currentBet + "$";
+    this.changeDislpayHdnPlayerIncrease();
   };
 
   betPlayer=(event)=>{   
@@ -103,39 +109,51 @@ class BetPlayer extends Component {
     }    
   };
 
- 
+  handleChange = evt => {
+    console.log("değişiyor")
+    this.setState({html: evt.target.value});
+  };
+
+  changeDislpayHdnPlayerIncrease=()=>{ 
+    if(this.refs.hdnPlayerIncrease.innerHTML==="")
+    {
+      this.refs.hdnPlayerIncrease.style.display = 'none';
+    }
+    else
+    {
+      this.refs.hdnPlayerIncrease.style.display = null;
+    }
+  }
+
   render() {
     var documentBody = this.props.fetched ? 
-    <div>
+    <div className="container mt-5 mb-5">
       <div className="row">
           <div className="col-lg-12 col-md-12 pay-success">
-          <h5>{this.props.player.playerName} </h5>
+            <h5>{this.props.player.playerName}</h5>
           </div>
       </div>
       <div className="row bid-link">
           <div className="col-lg-5 col-md-5 text-right">
-              <Link to="#" onClick={this.betPlayerDecrease}><i className="fas fa-minus-circle font-size-40 lh-250"></i></Link></div>
+          <Link to="#" onClick={this.betPlayerDecrease}><i className="fas fa-minus-circle font-size-40 lh-250"></i></Link></div>
           <div className="col-lg-2 col-md-2 pay-success">
-              <img src="/assets/img/football.png" className="img-fluid" width="200" alt=""/>
+              <img src={this.props.player.playerImageUrl} className="img-fluid" width="200" alt=""/>
           </div>
           <div className="col-lg-5 col-md-5 text-left">
-              <Link to="#" onClick={this.betPlayerIncrease}><i className="fas fa-plus-circle font-size-40 lh-250"></i></Link></div>
+          <Link to="#" onClick={this.betPlayerIncrease}><i className="fas fa-plus-circle font-size-40 lh-250"></i></Link></div>
       </div>
-      <div className="row">
-        <div className="col-lg-7 col-md-7 text-right">
-          <h2 style={{marginRight:"20px"}}>{this.props.playerBetPrice}$</h2>
-        </div>
-        <div className="col-lg-5 col-md-5 text-left">
-        <h2 ref="hdnPlayerIncrease" style={{color: "green"}}>{this.props.currentBet}$</h2> 
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-lg-12 col-md-12 pay-success">
-            <button onClick={this.betPlayer} type="submit" className="btn btn-primary mx-auto">BID</button>
+      <div className="row pay-success">
+          <div className="col-lg-12 col-md-12">
+              <strong>{this.props.playerBetPrice}$</strong><span ref="hdnPlayerIncrease" className="pay-success-plus">+{this.props.currentBet}</span>
+          </div>
+          <div className="col-lg-12 col-md-12">
+              <button type="submit" className="btn btn-primary mx-auto">BID</button>
           </div>
       </div>
       <ToastsContainer store={ToastsStore}/>
-    </div>
+      
+</div>
+ 
     :
    ""
     return (

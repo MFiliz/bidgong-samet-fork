@@ -54,7 +54,6 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             });
     
             this.pubnub.getMessage(this.props.user.email, (channel) => {   
-                console.log(channel.message) 
                     this.props.onSetWinner(channel.message);
                     this.props.history.push(`/winner/${channel.message.PlayerId}`);
             });
@@ -66,6 +65,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         var sectionClassName = '';
         var headerCassName = '';
         var dvMainCassName = '';
+        var userName = '';
         var style = {};
         var style2 = {};
         var fetched = this.props.fetched ? true : false;
@@ -75,6 +75,11 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
         if(typeof(this.props.error)!=="undefined" && typeof(this.props.error.isCustom)!=="undefined")
         {
             isCustom = this.props.error.isCustom;
+        }
+
+        if(typeof(this.props.user)!=="undefined" && typeof(this.props.user.username)!=="undefined")
+        {
+            userName = this.props.user.username;
         }
        
         style2 = {'display':'flex','justifyContent':'center','alignItems':'center','color':'black'}
@@ -95,6 +100,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             dvMainCassName = 'container mt-5';
             style = {};
         }
+
         return (
           <section className={sectionClassName}>        
           <header className={headerCassName}> 
@@ -156,7 +162,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
                                 className="fa fa-times-circle"></i></span>
                     </div>
                     <div style={style2} className="col-lg-6 col-md-6 col-xs-6">
-                        samet ilhan </div>
+                       {userName} </div>
                     <div className="col-lg-4 col-md-4 col-xs-4">
                         <img src="/assets/img/icon-user.png" className="img-fluid pull-right" alt="" />
                     </div>

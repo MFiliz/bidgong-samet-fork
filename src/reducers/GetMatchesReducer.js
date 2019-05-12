@@ -21,7 +21,16 @@ export default function GetMatchesReducer(state=[] , {
                 error: payload
             };
         case `${GET_MATCHES}_FULFILLED`:
-            return {
+            
+            return payload.length===0 ? {
+                ...state,
+                fetching: false,
+                fetched: false,
+                error:{
+                    message: "The active matches of the selected league was not found",
+                    isCustom : true
+                }
+            }:{
                 ...state,
                 fetching: false,
                 fetched: true,

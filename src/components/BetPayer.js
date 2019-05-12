@@ -67,6 +67,7 @@ class BetPlayer extends Component {
   
   
   componentWillUnmount() {
+    currentBet = 0;
     this.pubnub.unsubscribe({
       channels: [playerGuid]
     });

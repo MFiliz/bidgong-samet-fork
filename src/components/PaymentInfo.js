@@ -83,7 +83,7 @@ class PaymentInfo extends Component {
                 <form className="mb-3">
                     <div className="form-group d-flex">
                         <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputNameSurname"
-                               placeholder="Name Surmane on card..." defaultValue="4355084355084358" />
+                               placeholder="Name Surmane on card..." defaultValue="test" />
                     </div>
                     <div className="form-group d-flex">
                         <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardNumber"

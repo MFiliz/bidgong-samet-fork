@@ -35,11 +35,11 @@ class WinningHistory extends Component {
       documentBody =this.props.winningHistory.result.map((item, i) => {
           return (
             item.isClaimed === "1" ? 
-            <div key={i} className="row notification-list">
+            <div key={i} className="row notification-list" style={{background:"green",opacity:"0.6",filter:"alpha(opacity=60)"}}>
               <div className="col-lg-12 col-md-12">Player Name : {item.playerName} Team :{item.teamName} , Match Date : {item.matchDate}</div>
             </div>
             :
-              <div key={i} className="row notification-list" style={{cursor:"pointer",background:"green",opacity:"0.6",filter:"alpha(opacity=60)"}} onClick={this.gotoPayment} rel={item.playerId}  >
+              <div key={i} className="row notification-list" style={{cursor:"pointer"}} onClick={this.gotoPayment} rel={item.playerId}  >
                 <div className="col-lg-12 col-md-12">Player Name : {item.playerName} Team :{item.teamName} , Match Date : {item.matchDate}</div>
               </div>
           );

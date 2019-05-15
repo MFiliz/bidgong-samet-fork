@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import LayoutHOC from './LayoutHOC';
 import {Link} from 'react-router-dom';
 import {sendPayment} from '../actions/SendPaymentAction';
-import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 
 class PaymentInfo extends Component { 
 
@@ -14,7 +13,7 @@ class PaymentInfo extends Component {
   
   // componentDidUpdate() {  
   //   if(this.props.fetched)
-  //   {
+  //   {    
       
   //   } 
   // }
@@ -50,14 +49,14 @@ class PaymentInfo extends Component {
 
     if(!this.props.paymentInfoFetched && this.props.paymentInfo !== null&& typeof(this.props.paymentInfo) !== "undefined" && this.props.paymentInfo.hasOwnProperty('error'))
     {
-      ToastsStore.error(this.props.paymentInfo.error.message);
+      this.props.ToastsStore.error(this.props.paymentInfo.error.message);
     }
 
     if(this.props.paymentInfoFetched)
     {
       if(this.props.paymentInfo.result.entityData.status!=="SUCCESS")
       {
-        ToastsStore.error(this.props.paymentInfo.result.entityData.mdErrorMessage);
+        this.props.ToastsStore.error(this.props.paymentInfo.result.entityData.mdErrorMessage);
       }
       else
       {   
@@ -106,18 +105,18 @@ class PaymentInfo extends Component {
                 </form>
             </div>
         </div>
-        <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({paymentInfo,winner}) =>{
+const mapStateToProps = ({paymentInfo,winner,ToastsStore}) =>{
   return {
     paymentInfo,
     paymentInfoFetched : paymentInfo ===null|| typeof(paymentInfo) === "undefined" ? false : paymentInfo.fetched,
     winner,
     fetched : paymentInfo ===null|| typeof(paymentInfo) === "undefined" ? true : paymentInfo.fetched,
+    ToastsStore,
     bodyClass : 'pay'
   };
 }

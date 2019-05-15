@@ -19,6 +19,8 @@ import PaymentSuccess from './components/PaymentSuccess';
 import PaymentSuccessResult from './components/PaymentSuccessResult';
 import Notifications from './components/Notifications';
 import Winner from './components/Winner';
+import About from './components/About';
+import WinningHistory from './components/WinningHistory';
 
 class App extends Component {
   render() {
@@ -41,6 +43,8 @@ class App extends Component {
                 <Route path="/paymentsuccessresult/:id/:isPayment?" component={PaymentSuccessResult} exact  ></Route>
                 <Route path="/notifications" component={Notifications} exact ></Route>
                 <Route path="/winner/:id" component={Winner} exact ></Route>
+                <Route path="/about" component={About} exact ></Route>
+                <Route path="/winninghistory" component={WinningHistory} exact ></Route>
                 <Route component={Error} exact></Route>
              </Switch>              
           </Router>           

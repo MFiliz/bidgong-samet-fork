@@ -8,7 +8,6 @@ import {getMatch} from '../actions/GetMatchAction';
 import {setMatchBet} from '../actions/SetMatchBet';
 import PubNubReact from 'pubnub-react';
 // import ContentEditable from 'react-contenteditable';
-import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 import scrollToComponent from 'react-scroll-to-component';
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 
@@ -64,7 +63,7 @@ class SelectedMatch extends Component {
   scrollToComponent(this.refs[refName], {
       offset: 1000,
       align: 'top',
-      duration: 1500
+      duration: 500
   });
 
     element.animate(
@@ -89,7 +88,7 @@ class SelectedMatch extends Component {
       this.props.playerGuids.forEach((element,index) => {
        if(typeof(prevProps[element]) !== "undefined" && this.props[element].betPrice!==prevProps[element].betPrice)
        {        
-          ToastsStore.info(`${this.props[element].playerName}'s bet changed ${prevProps[element].betPrice} to ${this.props[element].betPrice}`,5000);
+          this.props.ToastsStore.info(`${this.props[element].playerName}'s bet changed ${prevProps[element].betPrice} to ${this.props[element].betPrice}`,5000);
           this.animateElement(this.refs[element],element);
        }
       });
@@ -222,7 +221,6 @@ class SelectedMatch extends Component {
      
       
       <ReactTooltip />
-      <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
     </div>
     : "";
     
@@ -232,7 +230,7 @@ class SelectedMatch extends Component {
   }
 }
 
-const mapStateToProps = ({currentMatch}) =>{
+const mapStateToProps = ({currentMatch,ToastsStore}) =>{
   let teams = [];
   let playerGuids = [];
   if(currentMatch.fetched===true)
@@ -245,6 +243,7 @@ const mapStateToProps = ({currentMatch}) =>{
       teams:teams,
       fetched: currentMatch.fetched,
       error: currentMatch.error,
+      ToastsStore,
       bodyClass : 'pages'
   };
   teams.forEach(element => {

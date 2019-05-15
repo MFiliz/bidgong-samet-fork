@@ -5,6 +5,7 @@ import {currentUser as CheckUser} from '../actions/CurrentUserAction';
 import {setWinner} from '../actions/WinnerAction';
 import {logoutUser} from '../actions/LogoutUserAction';
 import PubNubReact from 'pubnub-react';
+import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 
 const self = [];
 
@@ -19,6 +20,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             subscribeKey: 'sub-c-7d57f2f4-37bc-11e9-b5cf-1e59042875b2'
           });
         this.pubnub.init(this);
+      
     }
 
     self = this;
@@ -37,6 +39,11 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
     asidebarOpen=()=>{
         window.$('.aside').asidebar('open');
     };
+
+    // componentDidMount = () => {
+    //     ToastsStore.error(<Link style={{color:"black"}} to="/about">samet</Link>,10000);
+    // };
+    
     
     async logoutCurrentUser() {
         await this.props.onLogoutUser();
@@ -54,12 +61,16 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             });
     
             this.pubnub.getMessage(this.props.user.email, (channel) => {   
-                    this.props.onSetWinner(channel.message);
-                    this.props.history.push(`/winner/${channel.message.PlayerId}`);
+                console.log(channel.message)
+                    // this.props.onSetWinner(channel.message);
+                    ToastsStore.success(<Link style={{color:"black"}} to={`/WinningHistory`}>Winned Bed:{channel.message.PlayerName}</Link>,10000);
+                // ToastsStore.error(<Link style={{color:"black"}} to={`/winner/${channel.message.PlayerId}`}>samet</Link>,10000);
+                    // this.props.history.push(`/winner/${channel.message.PlayerId}`);
             });
         }
         
     }
+    
       render() {
 
         var sectionClassName = '';
@@ -170,11 +181,8 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             </div>
             <div className="aside-contents">
                 <ul className="nav-menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Home</a></li>
+                    <li><Link to="/winninghistory">Winning History</Link></li>
+                    <li><Link to="/about">About</Link></li>
                 </ul>
                 <div className="row">
                     <div className="col-lg-6 col-md-6 col-xs-6">
@@ -184,6 +192,7 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
                 </div>
             </div>
         </div>  
+        <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       </section>      
       )
       } 
@@ -195,7 +204,8 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             user : user.userInfo==null ? undefined : user.userInfo,
             userLoggedIn : user.userInfo==null ? false : true,
             userFetched : user.fetched,
-            winner
+            winner,
+            ToastsStore            
           };
     }
 

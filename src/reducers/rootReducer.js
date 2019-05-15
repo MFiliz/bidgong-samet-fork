@@ -13,8 +13,9 @@ import betPlayer from './BetPlayerReducer';
 import player from './GetPlayerReducer';
 import winner from './WinnerReducer';
 import paymentInfo from './SendPaymentReducer';
+import winningHistory from './GetWinningHistoryReducers';
 
 export default combineReducers({
     categories,category,categorySelection,matches,currentMatch,leagues,leagueSelection,
-    user,registerUser,betPlayer,player,winner,paymentInfo
+    user,registerUser,betPlayer,player,winner,paymentInfo,winningHistory
 })

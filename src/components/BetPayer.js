@@ -7,7 +7,6 @@ import {betPlayer} from '../actions/BetPlayerAction';
 import {setPlayerBet} from '../actions/SetPlayerBet';
 import {BET_VALUE} from '../config/Config';
 import PubNubReact from 'pubnub-react';
-import {ToastsContainer, ToastsStore,ToastsContainerPosition} from 'react-toasts';
 
 let playerGuid="BEEFFB29-A07E-497B-97CC-6C7A02C67419";
 let currentBet = 0;
@@ -68,7 +67,7 @@ class BetPlayer extends Component {
       {
         if(this.props.betPlayer.isError)
         {
-          ToastsStore.error(this.props.betPlayer.message);
+          this.props.ToastsStore.error(this.props.betPlayer.message);
         } 
       } 
       
@@ -80,12 +79,12 @@ class BetPlayer extends Component {
       if (this.props.playerBetPrice !== prevProps.playerBetPrice && (this.props.playerBetPrice-prevProps.playerBetPrice)-this.props.playerBetPrice !== 0) {
         if(lastBet !== this.props.playerBetPrice)
         {
-          ToastsStore.info(`Player bet increase ${(this.props.playerBetPrice-prevProps.playerBetPrice)}$. New bet : ${this.props.playerBetPrice}`,5000);
+          this.props.ToastsStore.info(`Player bet increase ${(this.props.playerBetPrice-prevProps.playerBetPrice)}$. New bet : ${this.props.playerBetPrice}`,5000);
           this.animateElement(this.refs[this.props.player.playerGuid]);
         }
         else
         {
-          ToastsStore.success(`Your bet is successfully to ${(this.props.playerBetPrice)}$. `,5000);
+          this.props.ToastsStore.success(`Your bet is successfully to ${(this.props.playerBetPrice)}$. `,5000);
         }
       }
     }
@@ -122,7 +121,7 @@ class BetPlayer extends Component {
     event.preventDefault(); 
     if(this.props.playerBetPrice + currentBet === this.props.playerBetPrice)
     {
-      ToastsStore.error("Bet verebilmeniz için değeri arttırmalısınız");
+      this.props.ToastsStore.error("Bet verebilmeniz için değeri arttırmalısınız");
     }
     else
     {
@@ -175,7 +174,6 @@ class BetPlayer extends Component {
               <button type="submit" onClick={this.betPlayer} className="btn btn-primary mx-auto">BID</button>
           </div>
       </div>
-      <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT}/>
       
 </div>
  
@@ -187,7 +185,7 @@ class BetPlayer extends Component {
   }
 }
 
-const mapStateToProps = ({betPlayer,user,player}) =>{
+const mapStateToProps = ({betPlayer,user,player,ToastsStore}) =>{
   return {
     betPlayer:betPlayer.result,
     betPlayerFetched : betPlayer.fetched,
@@ -197,6 +195,7 @@ const mapStateToProps = ({betPlayer,user,player}) =>{
     userFetched:user.fetched,
     userLoggedIn : user.userInfo==null ? false : true,
     fetched : player.fetched,
+    ToastsStore,
     bodyClass : 'pay'
    
   };

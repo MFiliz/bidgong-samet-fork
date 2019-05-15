@@ -181,12 +181,12 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             </div>
             <div className="aside-contents">
                 <ul className="nav-menu">
-                    <li><Link to="/winninghistory">Winning History</Link></li>
-                    <li><Link to="/about">About</Link></li>
+                    <li><Link data-dismiss="aside" to="/winninghistory">Winning History</Link></li>
+                    <li><Link data-dismiss="aside" to="/about">About</Link></li>
                 </ul>
                 <div className="row">
                     <div className="col-lg-6 col-md-6 col-xs-6">
-                        <Link to="#" onClick={this.logoutCurrentUser} ><i className="fas fa-sign-out-alt"></i></Link></div>
+                        <Link to="#" data-dismiss="aside" onClick={this.logoutCurrentUser} ><i className="fas fa-sign-out-alt"></i></Link></div>
                     <div className="col-lg-6 col-md-6 col-xs-6">
                         <Link to="#"><i className="fas fa-cog pull-right"></i></Link></div>
                 </div>

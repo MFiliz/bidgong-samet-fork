@@ -19,13 +19,29 @@ class WinningHistory extends Component {
     await this.props.onSetWinner(winningplayer);
     this.props.history.push(`/winner/${playerId}`);
   }
-  
-  async componentWillUpdate() {  
-    if(this.props.userFetched && this.props.userLoggedIn && (typeof(this.props.winningHistory)==="undefined"|| this.props.winningHistory.length===0) )
+
+  async componentDidMount() {
+    if(!(this.props.userFetched && this.props.userLoggedIn && (typeof(this.props.winningHistory)==="undefined"|| this.props.winningHistory.length===0) ))
     {
-       await this.props.onGetWinningHistory(this.props.user.email);
-    }
+        await this.props.onCheckUser(); 
+    }   
+    await this.props.onGetWinningHistory(this.props.user.email);   
   }
+  
+  
+  // async componentWillUpdate() {
+  //   if(this.props.userFetched && this.props.userLoggedIn && (typeof(this.props.winningHistory)==="undefined"|| this.props.winningHistory.length===0) )
+  //   {
+  //      await this.props.onGetWinningHistory(this.props.user.email);
+  //   }
+  // }
+
+  // async componentWillUpdate() {  
+  //   if(this.props.userFetched && this.props.userLoggedIn && (typeof(this.props.winningHistory)==="undefined"|| this.props.winningHistory.length===0) )
+  //   {
+  //      await this.props.onGetWinningHistory(this.props.user.email);
+  //   }
+  // }
 
   render() {
     let documentBody = "";
@@ -75,7 +91,7 @@ const mapStateToProps = ({winningHistory,user}) =>{
   return {
     winningHistory,
     user : user.userInfo == null ? null : user.userInfo,
-    fetched : winningHistory.fetched,
+    fetched : user.userInfo == null ? null : user.fetched,
     bodyClass : 'pages'
   };
 }

@@ -32,11 +32,11 @@ class PaymentInfo extends Component {
     // }
 
     var paymentInfos = {
-      "activeMatchId": this.props.winner.result.MatchId,
-      "teamId":this.props.winner.result.TeamId,
-      "playerId":this.props.winner.result.PlayerId,
+      "activeMatchId": this.props.winner.result.matchId,
+      "teamId":this.props.winner.result.teamId,
+      "playerId":this.props.winner.result.playerId,
       "userMail": this.props.user.email,
-      "price":this.props.winner.result.Price,
+      "price":this.props.winner.result.betPrice,
       "adress":null,
       "nameSurname":this.refs.inputNameSurname.value,
       "cardNumber":this.refs.inputCardNumber.value,
@@ -81,23 +81,28 @@ class PaymentInfo extends Component {
         <div className="row">
             <div className="col-md-5 col-lg-5 mx-auto text-center">
                 <form className="mb-3">
-                    <div className="form-group d-flex">
+                    <div className="form-group d-flex" style={{position: "relative"}}>
+                        <label htmlFor="inputNameSurname" style={{position: "absolute",left:"-180px",color:"black"}}>Name Surname </label> 
                         <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputNameSurname"
-                               placeholder="Name Surmane on card..." defaultValue="test" />
+                               placeholder="Name Surname on card..." defaultValue="test" />
                     </div>
-                    <div className="form-group d-flex">
+                    <div className="form-group d-flex" style={{position: "relative"}}>
+                        <label htmlFor="inputCardNumber" style={{position: "absolute",left:"-180px",color:"black"}}>CardNumber </label>
                         <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardNumber"
                                placeholder="CardNumber..." defaultValue="4355084355084358" />
                     </div>
-                    <div className="form-group d-flex">
+                    <div className="form-group d-flex" style={{position: "relative"}}>
+                        <label htmlFor="inputCardExpireMonth" style={{position: "absolute",left:"-180px",color:"black"}}>ExpireMonth </label>
                         <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardExpireMonth"
                                placeholder="ExpireMonth..." defaultValue="12" />
                     </div>
-                    <div className="form-group d-flex">
+                    <div className="form-group d-flex" style={{position: "relative"}}>
+                        <label htmlFor="inputCardExpireYear" style={{position: "absolute",left:"-180px",color:"black"}}>ExpireYear </label>
                         <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardExpireYear"
                                placeholder="ExpireYear..." defaultValue="2019" />
                     </div>
-                    <div className="form-group d-flex">
+                    <div className="form-group d-flex" style={{position: "relative"}}>
+                        <label htmlFor="inputCardCvvNumber" style={{position: "absolute",left:"-180px",color:"black"}}>CardCvvNumber </label>
                         <input type="text" className="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" ref="inputCardCvvNumber"
                                placeholder="CardCvvNumber..." defaultValue="000" />
                     </div>

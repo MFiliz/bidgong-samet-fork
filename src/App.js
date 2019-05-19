@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {Router,Route,Switch} from 'react-router-dom';
 import history from "./components/History";
+import Main from './components/Main';
 import Categories from './components/Categories';
 import Leagues from './components/Leagues';
 import Login from './components/Login';
@@ -27,7 +28,7 @@ class App extends Component {
     return (     
           <Router history={history}>
              <Switch>
-                <Route path="/" component={Categories} exact strict ></Route>
+                <Route path="/" component={Main} exact strict ></Route>
                 <Route path="/categories" component={Categories} exact ></Route>
                 <Route path="/login" component={Login} exact ></Route>
                 <Route path="/signup" component={SignUp} exact ></Route>

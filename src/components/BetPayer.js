@@ -46,14 +46,18 @@ class BetPlayer extends Component {
   }
   
   animateElement = (element) => {
-    window.scrollTo(0, element.current.offsetTop);
-    element.animate(
-      [{ color: "red" }, { color: "blue" }, { color: "yellow" }],
-      {
-        duration: 400,
-        iterations: 5
-      }
-    );
+    try {
+      element.animate(
+        [{ color: "red" }, { color: "blue" }, { color: "yellow" }],
+        {
+          duration: 400,
+          iterations: 5
+        }
+      );
+    } catch (error) {
+      
+    }
+   
   }
 
   componentDidMount() {

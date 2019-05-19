@@ -25,7 +25,7 @@ class PaymentSuccess extends Component {
                 <h2>SUCCESS</h2>
                 <p>Check the result in notifications after
                     finish the match</p>
-                    <Link to="/notifications"><button type="submit" className="btn btn-primary mx-auto">DONE</button></Link>
+                    <Link to="/"><button type="submit" className="btn btn-primary mx-auto">DONE</button></Link>
             </div>
         </div>
       </div>

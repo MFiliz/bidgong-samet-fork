@@ -181,6 +181,8 @@ const LayoutHOC = (WrappedComponent,mapStateToProps,mapDispatchToProps) => {
             </div>
             <div className="aside-contents">
                 <ul className="nav-menu">
+                    <li><Link data-dismiss="aside" to="/">Main Page</Link></li>
+                    <li><Link data-dismiss="aside" to="/categories">Categories</Link></li>
                     <li><Link data-dismiss="aside" to="/winninghistory">Winning History</Link></li>
                     <li><Link data-dismiss="aside" to="/about">About</Link></li>
                 </ul>

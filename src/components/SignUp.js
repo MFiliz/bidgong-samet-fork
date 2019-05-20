@@ -73,7 +73,7 @@ class SignUp extends Component {
     render() {
     document.body.className="page-top";
     return (         
-      <section id="signup" className="signup-section">
+      <section id="signup" className="signup-section" style={{height: "100%", position: "fixed", width: "100%"}}>
           <div className="container">
               <div className="row">
                   <div className="mx-auto text-center mb-5">

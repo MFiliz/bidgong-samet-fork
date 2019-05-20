@@ -59,12 +59,13 @@ class SelectedMatch extends Component {
 
 
  animateElement = (element,refName) => {
+  try {
 
-  scrollToComponent(this.refs[refName], {
-      offset: 1000,
-      align: 'top',
-      duration: 500
-  });
+    scrollToComponent(this.refs[refName], {
+        offset: 1000,
+        align: 'top',
+        duration: 500
+    });
 
     element.animate(
       [{ color: "red" }, { color: "blue" }, { color: "yellow" }],
@@ -73,6 +74,11 @@ class SelectedMatch extends Component {
         iterations: 5
       }
     );
+    
+  } catch (error) {
+    
+  }
+ 
   }
 
   // componentWillUpdate(nextProps, nextState) {

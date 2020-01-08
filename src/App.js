@@ -11,6 +11,7 @@ import SignUp from './components/SignUp';
 import SignupSuccess from './components/SignupSuccess';
 import Error from './components/Error';
 import Match from './components/Match';
+import MatchBasketball from './components/MatchBasketball';
 import Matches from './components/Matches';
 import Player from './components/Player';
 import BetPayer from './components/BetPayer';
@@ -34,6 +35,8 @@ class App extends Component {
                 <Route path="/signup" component={SignUp} exact ></Route>
                 <Route path="/signupsuccess" component={SignupSuccess} exact ></Route>
                 <Route path="/currentmatch/:id/:teamGuid?" component={Match} exact strict ></Route>
+                <Route path="/currentmatchbasketball/:id/:teamGuid?" component={MatchBasketball} exact strict ></Route>
+
                 <Route path="/matches/:id?" component={Matches} exact ></Route>   
                 <Route path="/leagues/:id?" component={Leagues} exact ></Route>                   
                 <Route path="/player/:id?" component={Player} exact ></Route>

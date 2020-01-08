@@ -2,7 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 function MatchesItemTemplate(props) {
-    const matchLink = `/currentmatch/${props.item.matchGuid}`;
+    let matchLink = `/currentmatch/${props.item.matchGuid}`;
+    if(props.item.leagueType == "Basketbol")
+    {
+         matchLink = `/currentmatchbasketball/${props.item.matchGuid}`;
+
+    }
     return (
         <Link to={matchLink}>     
             <div className="row team-list">                
